@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Coupon</title>
+
+    <!-- 기본 스타일 -->
+    <link href="assets/css/default.css" rel="stylesheet">
+    <style>
+        .ag-row-drag {
+            cursor: grab;
+        }
+
+        .ag-row-dragging {
+            cursor: grabbing;
+        }
+
+        .dragging-row-highlight {
+            background-color: #e0f7fa !important;
+        }
+    </style>
+    <style>
+        .resizable-image {
+            display: block;
+            max-width: 100%;
+        }
+
+        .resizable-image.resizing {
+            outline: 2px dashed #1E90FF;
+        }
+
+        #grid-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #grid-left,
+        #grid-right {
+            width: 45%;
+            height: 400px;
+
+        }
+
+        #grid-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .grid-btn {
+            width: 40px;
+            height: 40px;
+            background-color: #f5f5f5;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            font-size: 20px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 36px;
+            user-select: none;
+        }
+
+        .grid-btn:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="cmmContainer"></div>
+    <nav class="breadcrumb"></nav>
+    <div id="content" style="display: flex; gap: 0px; margin-top: 40px; align-items: flex-start;">
+        <!-- 왼쪽: 쿠폰 목록 -->
+        <div style="flex: 1;">
+          <div id="grid-left" class="ag-theme-alpine" style="height: 700px; width: 100%;"></div>
+        </div>
+      
+        <!-- 가운데 버튼 -->
+        <div id="grid-controls" style="width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; padding: 0 10px;">
+          <div class="grid-btn" id="btn-move-right">&gt;</div>
+          <div class="grid-btn" id="btn-move-left">&lt;</div>
+        </div>
+      
+        <!-- 오른쪽: 드롭다운 + 우측 그리드 -->
+        <div style="flex: 1; display: flex; flex-direction: column;">
+          <select id="lectureSelect" class="border p-2 rounded mb-2 w-full">
+            <option disabled selected>강좌를 선택하세요</option>
+          </select>
+          <div id="grid-right" class="ag-theme-alpine" style="height: 660px; width: 100%;"></div>
+        </div>
+      </div>
+      
+      
+      
+
+
+
+
+    <script type="module" src="assets/vendor/ag-grid-community/dist/ag-grid-community.noStyle.js"></script>
+    <script type="module" src="assets/js/logomodule.js"></script>
+    <script type="module" src="assets/js/relcpn.js"></script>
+</body>
+
+</html>

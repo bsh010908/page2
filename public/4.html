@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8" />
+  <title>TUI Grid DB Admin</title>
+  <link href="assets/css/default.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+  <div class="px-4 py-2">
+    <div class="flex gap-4 py-4">
+      <label>Host:
+        <input type="text" id="host" value="127.0.0.1">
+      </label>
+      <label>User:
+        <input type="text" id="user" value="edumgt">
+      </label>
+      <label>Password:
+        <input type="text" id="password" value="edumgt2250!">
+      </label>
+      <label>Database:
+        <input type="text" id="database" value="kegtest">
+      </label>
+      <input type="button" id="btnConnect" class="history-button" value="CONNECT">
+    </div>
+    <div class="flex gap-4 py-4">
+      <label>Query:</label>
+      <textarea id="query" rows="1"
+        style="width:800px">SELECT * FROM kegtest.dbo.T_code where groupcode like 'BD%'</textarea>
+      <input type="button" id="btnQuery" class="history-button" value="RUN">
+    </div>
+    <div class="flex items-center gap-1 py-2">
+      <label for="perPage">Rows per page:</label>
+      <select id="perPage" class="border border-gray-300 rounded px-2 py-1">
+        <option value="10">10</option>
+        <option value="20" selected>20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+
+    <div id="myGrid" style="width: 100%; height: 650px;"></div>
+  </div>
+
+<!-- 기존 모달 요소를 아래처럼 수정 -->
+<div id="columnModal" class="absolute bg-white border shadow-md rounded p-4 hidden z-50 w-80">
+  <h2 class="text-lg font-bold mb-3">표시할 컬럼 선택</h2>
+  <div id="columnCheckboxContainer" class="max-h-60 overflow-y-auto mb-4"></div>
+  <div class="flex justify-end gap-2">
+    <button id="applyColumnToggle" class="px-3 py-1 bg-blue-600 text-white rounded">적용</button>
+    <button id="closeColumnModal" class="px-3 py-1 bg-gray-400 text-white rounded">닫기</button>
+  </div>
+</div>
+
+
+  <script type="module" src="assets/vendor/tui-pagination/dist/tui-pagination.js"></script>
+  <script type="module" src="assets/vendor/tui-grid/dist/tui-grid.js"></script>
+  <script type="module" src="assets/js/4.js"></script>
+
+  </script>
+</body>
+
+</html>

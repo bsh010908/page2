@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8" />
+  <title>TUI Grid DB Admin</title>
+  <link href="assets/css/default.css" rel="stylesheet">
+  <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
+  <style>
+    #loading {
+      display: none;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="px-4 py-2">
+
+
+    <div class="flex gap-4 py-4">
+      <label for="apiSelect">API 목록:</label>
+      <select id="apiSelect" style="width: 400px;"></select>
+
+      <div id="paramsContainer" style="flex-wrap: wrap;"></div>
+
+      <input type="button" id="btnLoad" value="API 데이터 불러오기">
+    </div>
+
+
+
+    <!-- JSON 데이터 표시 영역 -->
+    <div style="margin-bottom: 4px;">
+      <label for="jsonData">JSON 데이터:</label><br>
+      <textarea id="jsonData" style="width: 100%; height: 80px;" readonly></textarea>
+    </div>
+
+    <!-- Row 수 표시 -->
+    <div id="rowCount" style="margin-bottom: 10px; font-weight: bold;"></div>
+
+    <div class="grid-wrapper" style="position: relative; width: 100%; height: 320px;">
+
+      <!-- listbox select 출력 영역 -->
+      <div id="listboxContainer" style="margin-top: 10px; display: none;">
+        <label for="dynamicSelect"><b>리스트박스 결과:</b></label>
+        <select id="dynamicSelect" style="width: 300px; height: 40px;"></select>
+      </div>
+
+
+      <!-- 로딩 이미지 오버레이 -->
+      <div id="loading" style="
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        display: none;
+        z-index: 10;
+        justify-content: center;
+        align-items: center;
+      ">
+        <img src="assets/img/loading.gif" alt="로딩 중..." />
+      </div>
+
+      <!-- TUI Grid -->
+      <div id="myGrid" style="width: 100%; height: 320px;"></div>
+    </div>
+  </div>
+
+  <script>
+    const apiSelect = document.getElementById('apiSelect');
+    const btnLoad = document.getElementById('btnLoad');
+    const jsonDataTextarea = document.getElementById('jsonData');
+    const loading = document.getElementById('loading');
+    const rowCount = document.getElementById('rowCount');
+    const paramsContainer = document.getElementById('paramsContainer');
+
+    let fullApiList = [];
+
+    const grid = new tui.Grid({
+      el: document.getElementById('myGrid'),
+      data: [],
+      columns: [],
+      scrollX: false,
+      scrollY: true,
+      rowHeight: 40,
+      bodyHeight: 600
+    });
+
+    // API 목록 가져오기
+    fetch('/api/list')
+      .then(res => res.json())
+      .then(apiList => {
+        fullApiList = apiList; // 전체 정보 저장
+
+        apiList.forEach(api => {
+          const option = document.createElement('option');
+          option.value = api.url;
+          option.textContent = `[${api.method}] ${api.url} - ${api.description || ''}`;
+          option.title = api.description || '';
+          apiSelect.appendChild(option);
+        });
+
+
+        // 초기 파라미터 필드 생성
+        updateParamsUI();
+      })
+      .catch(err => {
+        alert('API 목록을 불러오는 데 실패했습니다: ' + err.message);
+        console.error(err);
+      });
+
+    // API 선택 변경 시 파라미터 입력 필드 갱신
+    apiSelect.addEventListener('change', updateParamsUI);
+
+    function updateParamsUI() {
+      paramsContainer.innerHTML = '';
+      const selected = apiSelect.value;
+      const selectedApi = fullApiList.find(api => api.url === selected);
+
+      if (selectedApi?.method === 'POST' && Array.isArray(selectedApi.params)) {
+        selectedApi.params.forEach(param => {
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.placeholder = param;
+          input.name = param;
+          input.className = 'param-input border rounded px-2 py-1 text-sm';
+          paramsContainer.appendChild(input);
+        });
+      }
+    }
+
+    btnLoad.addEventListener('click', () => {
+      const path = apiSelect.value;
+      const selectedApi = fullApiList.find(api => api.url === path);
+
+      if (!selectedApi) {
+        alert('올바른 API를 선택하세요.');
+        return;
+      }
+
+      loading.style.display = 'flex';
+      rowCount.textContent = '';
+      jsonDataTextarea.value = '';
+
+     
+      const fetchOptions = {
+        method: selectedApi.method,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+
+
+      if (selectedApi.method === 'POST') {
+        const inputs = paramsContainer.querySelectorAll('.param-input');
+        const bodyData = {};
+        inputs.forEach(input => {
+          bodyData[input.name] = input.value;
+        });
+        fetchOptions.body = JSON.stringify(bodyData);
+      }
+
+      fetch(path, fetchOptions)
+        .then(res => {
+          if (!res.ok) throw new Error('API 호출 실패 (' + res.status + ')');
+          return res.json();
+        })
+        .then(res => {
+          const data = Array.isArray(res) ? res : res.data || [];
+
+          // listbox 전용 처리
+          const isListbox = path.startsWith('/listbox/');
+          if (isListbox) {
+            // 리스트박스용 select 구성
+            buildSelectBox(data);
+            document.getElementById('listboxContainer').style.display = 'block';
+            document.getElementById('myGrid').style.display = 'none';
+            rowCount.textContent = `총 ${data.length}건`;
+          } else {
+            // Grid 구성
+            const columns = createDynamicColumns(data);
+            grid.setColumns(columns);
+            grid.resetData(data);
+
+            document.getElementById('listboxContainer').style.display = 'none';
+            document.getElementById('myGrid').style.display = 'block';
+            rowCount.textContent = `총 ${data.length}건`;
+          }
+
+          jsonDataTextarea.value = JSON.stringify(res, null, 2);
+        })
+        .catch(err => {
+          alert('데이터 로딩 실패: ' + err.message);
+          console.error(err);
+        })
+        .finally(() => {
+          loading.style.display = 'none';
+        });
+    });
+
+    function buildSelectBox(data) {
+      const select = document.getElementById('dynamicSelect');
+      select.innerHTML = '';
+
+      data.forEach(item => {
+        const option = document.createElement('option');
+        option.text = item.val || '';
+        option.value = item.opt || '';
+        select.appendChild(option);
+      });
+    }
+
+
+    function createDynamicColumns(rows) {
+      if (!Array.isArray(rows) || rows.length === 0) return [];
+      return Object.keys(rows[0]).map(key => ({
+        header: key,
+        name: key,
+        sortable: true,
+        resizable: true
+      }));
+    }
+  </script>
+
+</body>
+
+</html>
