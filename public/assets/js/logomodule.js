@@ -362,8 +362,9 @@ const defaultMenuItems = [
         children: [
             { id: "15", text: '조직권한관리(예시)', href: 'orgtree.html', icon: 'fa-user-shield' },
             { id: "6", text: '문서권한관리(예시)', href: 'document.html', icon: 'fa-file-alt' },
-            { id: "30", text: '컨트롤러권한관리', href: 'copyright.html', icon: 'fa-cubes' },
             { id: "18", text: '입출력권한관리(예시)', href: 'system.html', icon: 'fa-server' },
+            { id: "30", text: '컨트롤러권한관리', href: 'copyright.html', icon: 'fa-cubes' },
+            
 
         ]
     }
