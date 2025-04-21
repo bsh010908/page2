@@ -356,7 +356,7 @@ const defaultMenuItems = [
     },
     {
         id: "14",
-        text: '조직(권한)관리',
+        text: '조직도관리',
         icon: 'fa-sitemap',
         href: 'orgni.html',
         children: [
