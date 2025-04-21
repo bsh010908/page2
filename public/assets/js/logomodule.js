@@ -141,14 +141,15 @@ function renderOffCanvasMenu(menuItems) {
             item.children.forEach(subItem => {
                 const subLi = document.createElement('li');
                 subLi.style.height = '26px';
-                subLi.style.paddingLeft = '10px';
-                subLi.style.width = '120px';
+                subLi.style.paddingLeft = '2px';
+                subLi.style.width = '130px';
+                subLi.style.backgroundColor = '#fff';
 
                 const subA = document.createElement('a');
                 subA.href = subItem.href;
 
                 subA.className = 'block text-gray-500 hover:text-blue-500';
-                subA.fontSize = '14px';
+                subA.fontSize = '13px';
 
                 const subIcon = document.createElement('i');
                 subIcon.className = `fas ${subItem.icon || 'fa-circle'} text-xs mr-2`;
@@ -346,7 +347,7 @@ const defaultMenuItems = [
     {
         id: "29",
         text: '쿠폰관리',
-        icon: 'fas fa-ticket-alt',  
+        icon: 'fas fa-ticket-alt',
         href: 'coupon.html',
         children: [
             { id: "30", text: '쿠폰발행', href: 'makecpn.html', icon: 'fas fa-plus-circle' },
@@ -364,7 +365,7 @@ const defaultMenuItems = [
             { id: "6", text: '문서권한관리(예시)', href: 'document.html', icon: 'fa-file-alt' },
             { id: "18", text: '입출력권한관리(예시)', href: 'system.html', icon: 'fa-server' },
             { id: "30", text: '컨트롤러권한관리', href: 'copyright.html', icon: 'fa-cubes' },
-            
+
 
         ]
     }
