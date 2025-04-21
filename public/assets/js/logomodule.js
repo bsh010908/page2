@@ -346,15 +346,27 @@ const defaultMenuItems = [
     {
         id: "29",
         text: '쿠폰관리',
-        icon: 'fas fa-ticket-alt',  // ✅ 쿠폰관리 대표 아이콘
+        icon: 'fas fa-ticket-alt',  
         href: 'coupon.html',
         children: [
-          { id: "30", text: '쿠폰발행', href: 'makecpn.html', icon: 'fas fa-plus-circle' },
-          { id: "31", text: '쿠폰사용', href: 'usecpn.html', icon: 'fas fa-check-circle' },
-          { id: "32", text: '쿠폰연동', href: 'relcpn.html', icon: 'fas fa-link' }
+            { id: "30", text: '쿠폰발행', href: 'makecpn.html', icon: 'fas fa-plus-circle' },
+            { id: "31", text: '쿠폰사용', href: 'usecpn.html', icon: 'fas fa-check-circle' },
+            { id: "32", text: '쿠폰연동', href: 'relcpn.html', icon: 'fas fa-link' }
         ]
-      }
-      
+    },
+    {
+        id: "14",
+        text: '조직(권한)관리',
+        icon: 'fa-sitemap',
+        href: 'orgni.html',
+        children: [
+            { id: "15", text: '조직권한관리(예시)', href: 'orgtree.html', icon: 'fa-user-shield' },
+            { id: "6", text: '문서권한관리(예시)', href: 'document.html', icon: 'fa-file-alt' },
+            { id: "18", text: '입출력권한관리(예시)', href: 'system.html', icon: 'fa-server' },
+
+        ]
+    }
+
 ];
 
 // Dev Data 연동 안될 경우 
