@@ -713,5 +713,63 @@ router.get('/member-permissions', function (req, res) {
     });
 });
 
+// PUT /api/member-permissions/:id
+router.put('/member-permissions/:id', function (req, res) {
+    const { id } = req.params;
+    const {
+        can_search, can_add, can_delete,
+        can_reset_search, can_save, can_view
+    } = req.body;
 
+    const query = `
+        UPDATE member_menu_permission
+        SET 
+            can_search = ?, 
+            can_add = ?, 
+            can_delete = ?, 
+            can_reset_search = ?, 
+            can_save = ?, 
+            can_view = ?
+        WHERE id = ?
+    `;
+
+    db.query(query, [can_search, can_add, can_delete, can_reset_search, can_save, can_view, id], function (err) {
+        if (err) {
+            console.error('권한 수정 실패:', err);
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+        res.json({ message: '권한이 성공적으로 수정되었습니다.' });
+    });
+});
+
+// POST /api/member-permissions
+router.post('/member-permissions', function (req, res) {
+    const {
+      member_id, menu_page_id,
+      can_search, can_add, can_delete,
+      can_reset_search, can_save, can_view
+    } = req.body;
+  
+    const query = `
+      INSERT INTO member_menu_permission (
+        member_id, menu_page_id,
+        can_search, can_add, can_delete,
+        can_reset_search, can_save, can_view
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+  
+    db.query(query, [
+      member_id, menu_page_id,
+      can_search, can_add, can_delete,
+      can_reset_search, can_save, can_view
+    ], function (err, result) {
+      if (err) {
+        console.error("신규 등록 실패:", err);
+        return res.status(500).json({ message: "등록 실패" });
+      }
+      res.json({ message: "등록 성공", id: result.insertId });
+    });
+  });
+
+  
 module.exports = router;
