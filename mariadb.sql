@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `bbs` (
   KEY `인덱스 1` (`seq`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 테이블 데이터 bbs.bbs:~0 rows (대략적) 내보내기
+-- 테이블 데이터 bbs.bbs:~18 rows (대략적) 내보내기
 DELETE FROM `bbs`;
 /*!40000 ALTER TABLE `bbs` DISABLE KEYS */;
 INSERT INTO `bbs` (`seq`, `id`, `ref`, `step`, `depth`, `title`, `content`, `created_at`, `del`, `read_count`) VALUES
@@ -1724,13 +1724,15 @@ CREATE TABLE IF NOT EXISTS `member_menu_permission` (
   KEY `member_id` (`member_id`),
   KEY `FK_member_menu_permission_menu_page` (`menu_page_id`) USING BTREE,
   CONSTRAINT `member_menu_permission_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- 테이블 데이터 bbs.member_menu_permission:~1 rows (대략적) 내보내기
 DELETE FROM `member_menu_permission`;
 /*!40000 ALTER TABLE `member_menu_permission` DISABLE KEYS */;
 INSERT INTO `member_menu_permission` (`id`, `member_id`, `menu_page_id`, `can_search`, `can_add`, `can_delete`, `can_reset_search`, `can_save`, `can_view`) VALUES
-	(2, 'test0001', 18, 1, 1, 1, 1, 1, 1);
+	(2, 'test0001', 18, 0, 1, 1, 0, 0, 0),
+	(3, 'test0002', 18, 1, 1, 1, 1, 1, 1),
+	(4, 'test0004', 20, 1, 1, 1, 1, 1, 1);
 /*!40000 ALTER TABLE `member_menu_permission` ENABLE KEYS */;
 
 -- 테이블 bbs.menu_item 구조 내보내기
@@ -1854,9 +1856,9 @@ CREATE TABLE IF NOT EXISTS `menu_page` (
   `page_name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `page_name` (`page_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 테이블 데이터 bbs.menu_page:~28 rows (대략적) 내보내기
+-- 테이블 데이터 bbs.menu_page:~29 rows (대략적) 내보내기
 DELETE FROM `menu_page`;
 /*!40000 ALTER TABLE `menu_page` DISABLE KEYS */;
 INSERT INTO `menu_page` (`id`, `page_name`) VALUES
@@ -1866,6 +1868,7 @@ INSERT INTO `menu_page` (`id`, `page_name`) VALUES
 	(3, 'chain.html'),
 	(4, 'city.html'),
 	(5, 'config.html'),
+	(30, 'copyright.html'),
 	(29, 'coupon.html'),
 	(6, 'document.html'),
 	(7, 'flow.html'),
@@ -2052,7 +2055,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 테이블 데이터 bbs.users:~0 rows (대략적) 내보내기
+-- 테이블 데이터 bbs.users:~20 rows (대략적) 내보내기
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`) VALUES
