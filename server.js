@@ -48,41 +48,42 @@ app.post('/upload/image', upload.single('image'), (req, res) => {
 });
 
 
-// Prometheus 기본 메트릭 등록
+// 🟢 기본 메트릭 수집 시작 (1회만 호출)
 client.collectDefaultMetrics();
 
-// Prometheus 포맷 메트릭 엔드포인트
-app.get('/actuator/prometheus', async (req, res) => {
-  res.set('Content-Type', client.register.contentType);
-  res.end(await client.register.metrics());
-});
-
-// 기본 메트릭 수집 시작
-client.collectDefaultMetrics();
-
-// 요청 카운터 예시
-const counter = new client.Counter({
+// 🟢 요청 수 카운터 메트릭 정의
+const requestCounter = new client.Counter({
   name: 'http_requests_total',
   help: 'Total number of HTTP requests',
   labelNames: ['method', 'route']
 });
 
+// 🟢 모든 요청에 대해 메트릭 증가 처리
 app.use((req, res, next) => {
   res.on('finish', () => {
-    counter.labels(req.method, req.path).inc();
+    requestCounter.labels(req.method, req.route?.path || req.path).inc();
   });
   next();
 });
 
-app.get('/', (req, res) => res.send('OK'));
-
-// Prometheus 엔드포인트
-app.get('/metrics', async (req, res) => {
-  res.set('Content-Type', client.register.contentType);
-  res.end(await client.register.metrics());
+// 🟢 일반 라우트 예시
+app.get('/', (req, res) => {
+  res.send('OK');
 });
 
-app.use(actuator());
+// 🟢 Prometheus 메트릭 포맷 엔드포인트 (두 가지 경로 허용)
+const prometheusHandler = async (req, res) => {
+  res.set('Content-Type', client.register.contentType);
+  res.end(await client.register.metrics());
+};
+
+app.get('/metrics', prometheusHandler);              // 표준 Prometheus 경로
+app.get('/actuator/prometheus', prometheusHandler);  // Spring 호환 경로
+
+// 🟢 express-actuator 설정
+app.use(actuator({
+  basePath: '/actuator'
+}));
 
 /**
  * @swagger
