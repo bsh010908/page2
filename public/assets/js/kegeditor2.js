@@ -16,9 +16,16 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
   document.head.appendChild(style);
 
-  setupMasterGrid(mockGroupList);
-  setupDetailGrid([]);
+  const savedLeftData = localStorage.getItem("leftGridData");
+  const savedRightData = localStorage.getItem("rightGridData");
+
+  const initialLeftData = savedLeftData ? JSON.parse(savedLeftData) : mockGroupList;
+  const initialRightData = savedRightData ? JSON.parse(savedRightData) : [];
+
+  setupMasterGrid(initialLeftData);
+  setupDetailGrid(initialRightData);
 });
+
 
 const draggingRowKeys = new Set();
 
@@ -145,8 +152,6 @@ function registerDropZones() {
     rightGridApi.addRowDropZone(toLeftZone);
   }
 }
-
-
 function moveRows(draggedRows, from) {
   const sourceApi = from === "left" ? leftGridApi : rightGridApi;
   const targetApi = from === "left" ? rightGridApi : leftGridApi;
@@ -155,11 +160,7 @@ function moveRows(draggedRows, from) {
   const targetData = getCurrentRowData(targetApi);
 
   const filteredSource = removeSelectedFromSource(sourceData, draggedRows);
-
-
-
   const mergedTarget = mergeUniqueRows(targetData, draggedRows);
-
 
   if (from === "left") {
     setupMasterGrid(filteredSource);
@@ -169,8 +170,16 @@ function moveRows(draggedRows, from) {
     setupDetailGrid(filteredSource);
   }
 
+  // ✅ 양쪽 데이터 localStorage에 저장
+  const newLeftData = from === "left" ? filteredSource : mergedTarget;
+  const newRightData = from === "left" ? mergedTarget : filteredSource;
+
+  localStorage.setItem("leftGridData", JSON.stringify(newLeftData));
+  localStorage.setItem("rightGridData", JSON.stringify(newRightData));
+
   showToast(`${draggedRows.length}건 이동 완료`);
 }
+
 
 function getCurrentRowData(api) {
   const rowData = [];
@@ -191,7 +200,7 @@ function mergeUniqueRows(target, added) {
   console.log("added.type: ", added.type);
 
   const map = new Map();
-  [...added,...target].forEach(row => {
+  [...added, ...target].forEach(row => {
     if (row && typeof row === 'object' && 'groupcode' in row) {
       map.set(row.groupcode, row);
     }
