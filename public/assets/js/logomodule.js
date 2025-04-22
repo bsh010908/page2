@@ -1409,9 +1409,10 @@ function createAllMenuModal(menuItems) {
         const link = document.createElement('a');
         link.href = item.href || '#';
         link.className = 'text-blue-600 font-semibold flex items-start gap-2 mb-2';
+        
 
         link.innerHTML = `
-            <i class="fas ${item.icon} mt-1 text-base"></i>
+            <i class="fas ${item.icon} mt-1 " style="border: none;"></i>
             <div class="flex flex-col leading-tight">
                 <span>${item.text}</span>
                 <span class="text-xs text-gray-400">${item.href || '-'}</span>
