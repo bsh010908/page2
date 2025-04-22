@@ -53,9 +53,9 @@ function setupMasterGrid(data) {
     animateRows: true,
     onGridReady: params => {
       leftGridApi = params.api;
-      registerDropZones(); // ← 추가
+      registerDropZones(); 
     },
-    // ✅ Drop to Right Grid
+    
     onRowDragEnd: event => {
       const draggedData = event.node.data;
       const from = "left";
@@ -97,7 +97,7 @@ function setupDetailGrid(data) {
       rightGridApi = params.api;
       registerDropZones();
     },
-    // ✅ Drop to Left Grid
+    
     onRowDragEnd: event => {
       const draggedData = event.node.data;
       const from = "right";
@@ -111,7 +111,7 @@ function setupDetailGrid(data) {
 }
 function registerDropZones() {
   if (leftGridApi && rightGridApi) {
-    // 왼쪽 → 오른쪽
+    
     const toRightZone = rightGridApi.getRowDropZoneParams({
       onDragStop: event => {
         const dragged = event.node.data;
@@ -131,7 +131,7 @@ function registerDropZones() {
     });
     leftGridApi.addRowDropZone(toRightZone);
 
-    // 오른쪽 → 왼쪽
+    
     const toLeftZone = leftGridApi.getRowDropZoneParams({
       onDragStop: event => {
         const dragged = event.node.data;
@@ -170,7 +170,7 @@ function moveRows(draggedRows, from) {
     setupDetailGrid(filteredSource);
   }
 
-  // ✅ 양쪽 데이터 localStorage에 저장
+  
   const newLeftData = from === "left" ? filteredSource : mergedTarget;
   const newRightData = from === "left" ? mergedTarget : filteredSource;
 
