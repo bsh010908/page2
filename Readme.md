@@ -56,3 +56,7 @@
 
 ## docker run -d --name prometheus -p 9090:9090 -v prometheus.yaml:/etc/prometheus/prometheus.yaml prom/prometheus
 ## docker run -d --name=grafana -p 3001:3000 grafana/grafana
+## Grafana의 데이터소스 설정에서 URL을 http://localhost:9090이 아닌 http://host.docker.internal:9090으로
+## Set-ExecutionPolicy Restricted
+## npm install -g autocannon
+## autocannon -d 30 -c 50 http://localhost:3000/

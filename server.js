@@ -57,6 +57,31 @@ app.get('/actuator/prometheus', async (req, res) => {
   res.end(await client.register.metrics());
 });
 
+// 기본 메트릭 수집 시작
+client.collectDefaultMetrics();
+
+// 요청 카운터 예시
+const counter = new client.Counter({
+  name: 'http_requests_total',
+  help: 'Total number of HTTP requests',
+  labelNames: ['method', 'route']
+});
+
+app.use((req, res, next) => {
+  res.on('finish', () => {
+    counter.labels(req.method, req.path).inc();
+  });
+  next();
+});
+
+app.get('/', (req, res) => res.send('OK'));
+
+// Prometheus 엔드포인트
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', client.register.contentType);
+  res.end(await client.register.metrics());
+});
+
 app.use(actuator());
 
 /**
