@@ -53,3 +53,6 @@
 ## EC2 실행
 ## tmux
 ## sudo npm run dev
+
+## docker run -d --name prometheus -p 9090:9090 -v prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+## docker run -d --name=grafana -p 3001:3000 grafana/grafana

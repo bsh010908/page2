@@ -14,6 +14,9 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerDocument = require('./swagger.json');
 
+const client = require('prom-client');
+const actuator = require('express-actuator');
+
 const app = express();
 const PORT = 3000;
 const SECRET_KEY = 'edumgtedumgt'; // JWT 서명에 사용할 비밀 키
@@ -44,6 +47,17 @@ app.post('/upload/image', upload.single('image'), (req, res) => {
   res.json({ url: imageUrl });
 });
 
+
+// Prometheus 기본 메트릭 등록
+client.collectDefaultMetrics();
+
+// Prometheus 포맷 메트릭 엔드포인트
+app.get('/actuator/prometheus', async (req, res) => {
+  res.set('Content-Type', client.register.contentType);
+  res.end(await client.register.metrics());
+});
+
+app.use(actuator());
 
 /**
  * @swagger
