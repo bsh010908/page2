@@ -19,19 +19,20 @@
         "survey-2": "Please enter at least two options.",
         "save-error":"Data was successfully stored in local storage, but failed to save on the remote server.",
         "new-save":"New and Save features are now enabled.",
-        "data-possible":"데이타 입력/수정 가능 합니다.",
-        "auto-key":"자동 부여 Key 로 편집 불가 합니다.",
-        "search-click":"검색 클릭 시 신규, 저장 기능은 비활성화 됩니다.",
-        "number-only":"숫자만 입력 가능합니다.",
-        "server-warning":"일부 데이타의 타입이 맞지 않아, 서버에서 조정 처리하였습니다.",
-        "invalid-date-format":"날짜 형식은 YYYY-MM-DD 입니다.",
-        "auto-save":"데이타를 자동 저장하였습니다.",
-        "reserve-cancel":"해당 예약건을 취소하였습니다.",
-        "already-add":"이미 추가된 문항입니다.",
-        "all-answer":"모든 문항 답변을 완료했습니다.",
-        "survey-add":"설문지를 추가하였습니다.",
-        "choice-q":"답안을 선택하세요.",
-        "cors-error":"CORS 오류입니다."
+
+        "data-possible": "Data entry/editing is allowed.",
+        "auto-key": "Editing is not allowed for auto-generated keys.",
+        "search-click": "When searching, new and save functions are disabled.",
+        "number-only": "Only numbers are allowed.",
+        "server-warning": "Some data types were incorrect and have been adjusted by the server.",
+        "invalid-date-format": "Date format must be YYYY-MM-DD.",
+        "auto-save": "Data has been saved automatically.",
+        "reserve-cancel": "The reservation has been canceled.",
+        "already-add": "This item has already been added.",
+        "all-answer": "All questions have been answered.",
+        "survey-add": "Survey has been added.",
+        "choice-q": "Please select an answer.",
+        "cors-error": "CORS error occurred."
 
     },
     "ko": {
@@ -54,9 +55,9 @@
         "survey-2":"옵션은 최소 2개 이상 입력하세요",
         "save-error":"로컬 스토리지에 저장 하였으나, 원격 서버 데이터 저장에 실패했습니다.",
         "new-save":"신규, 저장 기능이 활성화 됩니다.",
+
         "data-possible":"데이타 입력/수정 가능 합니다.",
         "auto-key":"자동 부여 Key 로 편집 불가 합니다.",
-       
         "search-click":"검색 클릭 시 신규, 저장 기능은 비활성화 됩니다.",
         "number-only":"숫자만 입력 가능합니다.",
         "server-warning":"일부 데이타의 타입이 맞지 않아, 서버에서 조정 처리하였습니다.",
@@ -90,19 +91,19 @@
         "save-error":"ローカルストレージには正常に保存されましたが、リモートサーバーへの保存に失敗しました。",
         "new-save":"新規と保存の機能が有効になります。",
         
-        "data-possible":"데이타 입력/수정 가능 합니다.",
-        "auto-key":"자동 부여 Key 로 편집 불가 합니다.",
-        "search-click":"검색 클릭 시 신규, 저장 기능은 비활성화 됩니다.",
-        "number-only":"숫자만 입력 가능합니다.",
-        "server-warning":"일부 데이타의 타입이 맞지 않아, 서버에서 조정 처리하였습니다.",
-        "invalid-date-format":"날짜 형식은 YYYY-MM-DD 입니다.",
-        "auto-save":"데이타를 자동 저장하였습니다.",
-        "reserve-cancel":"해당 예약건을 취소하였습니다.",
-        "already-add":"이미 추가된 문항입니다.",
-        "all-answer":"모든 문항 답변을 완료했습니다.",
-        "survey-add":"설문지를 추가하였습니다.",
-        "choice-q":"답안을 선택하세요.",
-        "cors-error":"CORS 오류입니다."
+        "data-possible": "データの入力・編集が可能です。",
+        "auto-key": "自動付与されたキーは編集できません。",
+        "search-click": "検索をクリックすると、新規・保存機能が無効になります。",
+        "number-only": "数字のみ入力可能です。",
+        "server-warning": "一部のデータ型が一致せず、サーバーで調整されました。",
+        "invalid-date-format": "日付形式は YYYY-MM-DD です。",
+        "auto-save": "データが自動保存されました。",
+        "reserve-cancel": "該当の予約をキャンセルしました。",
+        "already-add": "すでに追加されている項目です。",
+        "all-answer": "すべての質問に回答しました。",
+        "survey-add": "アンケートを追加しました。",
+        "choice-q": "回答を選択してください。",
+        "cors-error": "CORSエラーが発生しました。"
 
     }
 }
