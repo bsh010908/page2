@@ -3,6 +3,8 @@
 
 <head>
     <link href="assets/css/default.css" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -13,16 +15,22 @@
     <div id="content">
 
 
-        <div id="workarea">
-            <button class="flex-1 tablinks bg-gray-300 hover:bg-gray-100 "
+        <div id="workarea" class="flex space-x-2 bg-gray-100 p-2 rounded-t-lg shadow-md">
+            <button
+                class="tablinks px-4 py-1 rounded-t-md bg-white text-blue-600 font-semibold border-blue-600 shadow-sm"
                 onclick="openTab(event, 'QuestionCreation')">문항작성</button>
-            <button class="flex-1 tablinks bg-gray-300 hover:bg-gray-100"
+            <button
+                class="tablinks px-4 py-1 rounded-t-md hover:bg-white hover:text-blue-600 hover:font-semibold transition"
                 onclick="openTab(event, 'SurveyBuilder')">설문지구성</button>
-            <button class="flex-1 tablinks bg-gray-300 hover:bg-gray-100"
+            <button
+                class="tablinks px-4 py-1 rounded-t-md hover:bg-white hover:text-blue-600 hover:font-semibold transition"
                 onclick="openTab(event, 'SurveyResponse')">설문응답</button>
-            <button class="flex-1 tablinks bg-gray-300 hover:bg-gray-100 "
+            <button
+                class="tablinks px-4 py-1 rounded-t-md hover:bg-white hover:text-blue-600 hover:font-semibold transition"
                 onclick="openTab(event, 'ResponseResults')">응답결과</button>
         </div>
+
+
 
         <div id="QuestionCreation" class="tabcontent hidden">
             <div class="card">
@@ -46,10 +54,6 @@
 
             <div class="flex">
                 <div id="questionsList" class="border p-4 w-1/2 overflow-auto"></div>
-
-
-
-
                 <div id="surveyContainer" class="drop-zone p-4 w-1/2 dropdown-scroll-container overflow-auto">
                     <div class="flex">
                         <h3 class="mb-2 flex-1">
@@ -76,7 +80,19 @@
             <button id="submitSurvey" class="bg-green-500 text-white">설문 제출</button>
         </div>
         <div id="ResponseResults" class="tabcontent hidden">
-            <div id="reportContainer"></div>
+            <!-- 응답결과 컨테이너 -->
+            <div id="resultsSection" class="flex gap-4">
+                <!-- 기존 리포트 (좌측) -->
+                <div id="reportContainer" class="flex-1"></div>
+            
+                <!-- 추천 결과 (우측) -->
+                <div id="recommendationPanel" class="w-96 bg-white shadow-md rounded-lg p-4">
+                <h2 class="text-xl font-bold mb-4 border-b pb-2">🔍 건강기능식품 추천</h2>
+                <div id="recommendationList" class="space-y-4">
+                    <!-- JS로 동적 카드 생성 -->
+                </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -94,8 +110,6 @@
 
     <script type="module" src="assets/js/chart.js"></script>
     <script type="text/javascript" src="assets/js/survey.js"></script>
-
-
 
 
 </body>

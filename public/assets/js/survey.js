@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const questionsContainer = document.getElementById("questionsContainer");
     questionsContainer.classList.add('mt-4');
 
-    // JSON 데이터를 불러오는 함수 (최대 3번 재시도)
+
     function fetchQuestions(retryCount = 0) {
-        //console.log(`Fetching questions... Attempt: ${retryCount + 1}`);
+
 
         fetch('assets/mock/questions.json')
             .then(response => {
@@ -19,13 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 localStorage.setItem('questions', JSON.stringify(data));
-                //console.log("Questions successfully loaded:", data);
+
                 initializeGrid(data);
             })
             .catch(error => {
                 console.error('Error fetching surveys:', error);
                 if (retryCount < 2) {
-                    setTimeout(() => fetchQuestions(retryCount + 1), 2000); // 2초 후 재시도
+                    setTimeout(() => fetchQuestions(retryCount + 1), 2000);
                 } else {
                     console.error("Failed to fetch questions after multiple attempts.");
                 }
@@ -33,31 +33,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (!rowData) {
-        fetchQuestions(); // 최초 데이터 로드 시도
+        fetchQuestions();
     } else {
         initializeGrid(rowData);
     }
 
     function initializeGrid(data) {
 
-        
+
 
         window.grid = new tui.Grid({
             el: questionsContainer,
             data: data,
             columns: [
-                { 
-                    header: "ID", name: "id", width: 60, 
-                    sortable: true, // 정렬 기능 추가
+                {
+                    header: "ID", name: "id", width: 60,
+                    sortable: true,
                     filter: {
-                        type: 'number' // 숫자 필터 추가
+                        type: 'number'
                     }
                 },
                 {
                     header: "질문", name: "text", width: 250,
                     resizable: true,
                     editor: "text",
-                    sortable: true, // 정렬 기능 추가
+                    sortable: true,
                     filter: {
                         type: 'text'
 
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     },
                     minWidth: 400,
-                    sortable: true, // 정렬 기능 추가
+                    sortable: true,
                     filter: {
                         type: 'text'
 
@@ -81,12 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             bodyHeight: 500,
             scrollX: true,
-            scrollY: true
+            scrollY: true,
+            pageOptions: {
+                useClient: true,
+                perPage: 15,
+                visiblePages: 10
+            }
         });
 
-        
-        
-        
+
+
+
 
         grid.on('afterChange', ({ changes }) => {
             let storedData = JSON.parse(localStorage.getItem("questions")) || [];
@@ -98,7 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 let existingIndex = storedData.findIndex(q => q.id === updatedRow.id);
                 if (existingIndex !== -1) {
                     if (columnName === "options") {
-                        storedData[existingIndex][columnName] = value.split(",").map(opt => opt.trim()); // 문자열을 배열로 변환
+                        storedData[existingIndex][columnName] = value.split(",").map(opt => opt.trim());
+
                     } else {
                         storedData[existingIndex][columnName] = value;
                     }
@@ -135,18 +141,27 @@ function addQuestion() {
     createQuestionBox(newQuestion, document.getElementById('questionsList'));
 
     if (window.grid) {
-        window.grid.appendRow(newQuestion); // 새로운 행 추가
+        window.grid.appendRow(newQuestion);
 
     }
 
-    // 입력 필드 초기화
+
     questionInput.value = '';
     document.querySelectorAll('#optionsInput input').forEach(input => input.value = '');
 
 }
 
-// 탭 전환 함수
+
 function openTab(evt, tabName) {
+
+    document.querySelectorAll('.tablinks').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-blue-600', 'border-blue-600', 'font-semibold', 'shadow-sm', 'text-white');
+        btn.classList.add('hover:bg-white', 'hover:text-blue-600', 'hover:font-semibold');
+    });
+
+    evt.currentTarget.classList.remove('hover:bg-white', 'hover:text-blue-600', 'hover:font-semibold');
+    evt.currentTarget.classList.add('bg-white', 'text-white', 'border-blue-600', 'font-semibold', 'shadow-sm');
+
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -164,9 +179,9 @@ function openTab(evt, tabName) {
     }
 }
 
-// 데이터 fetch
+
 function fetchData() {
-    // 초기 실행
+
     waitForQuestions();
 
     fetch('assets/mock/surveys.json')
@@ -248,10 +263,10 @@ function handleDragLeave(event) {
 function handleDrop(event) {
     event.preventDefault();
     event.currentTarget.classList.remove('bg-gray-200');
-    
+
     // 실제 드롭 영역이 'surveyContainer' 인지 확인(바인딩된 요소를 사용하는 방법)
     const dropContainer = event.currentTarget; // = document.getElementById('surveyContainer');
-    
+
     const questionId = event.dataTransfer.getData('text/plain');
     const questions = JSON.parse(localStorage.getItem('questions')) || [];
     const question = questions.find(q => q.id == questionId);
@@ -287,7 +302,6 @@ function createSurveyQuestionBox(question, draggable = false) {
 }
 
 
-// 설문 문항 생성 함수
 function createSurveyQuestionBox(question, isRemovable) {
     const questionBox = document.createElement('div');
     questionBox.className = 'question-box border p-2 my-2 relative';
@@ -319,47 +333,45 @@ function createSurveyQuestionBox(question, isRemovable) {
 
 
 function saveSurvey() {
-    // 설문지명 가져오기
+
     const surveyTitleInput = document.getElementById('surveyTitleInput');
     const surveyTitle = surveyTitleInput.value.trim();
 
-    // 설문지명 검증 (미입력 시 알림)
+
     if (!surveyTitle) {
         showToast("설문지명을 입력해주세요.", "warning", lang);
         return;
     }
 
-    // 실제 설문 문항(questions) 구성 읽어오기
+
     const surveyContainer = document.getElementById('surveyContainer');
     const surveyQuestions = Array.from(
         surveyContainer.getElementsByClassName('question-box')
     ).map(box => parseInt(box.dataset.id));
 
-    // 새로운 설문 객체
+
     const newSurvey = {
         id: Date.now(),
-        title: surveyTitle,  // 입력받은 설문지명
+        title: surveyTitle,
         description: "문항을 드래그 앤 드롭 하여 설문지를 구성 합니다.",
         questions: surveyQuestions
     };
 
-    // 로컬 스토리지에서 기존 설문 목록 가져오기
+
     const surveys = JSON.parse(localStorage.getItem('surveys')) || [];
     surveys.push(newSurvey);
     localStorage.setItem('surveys', JSON.stringify(surveys));
 
-    // 저장 후 사용자에게 안내
+
     showToast('survey-add', 'success', lang);
 
-    // 저장 완료 후, 설문 제목 필드 초기화
+
     surveyTitleInput.value = '';
 
-    // 설문 목록 Select 갱신
     populateSurveySelect();
 }
 
 
-// 설문지 선택 목록 업데이트 함수
 function populateSurveySelect() {
     const surveySelect = document.getElementById('surveySelect');
     const surveys = JSON.parse(localStorage.getItem('surveys')) || [];
@@ -374,7 +386,6 @@ function populateSurveySelect() {
     surveySelect.addEventListener('change', displaySelectedSurvey);
 }
 
-// 선택한 설문지 표시 함수
 function displaySelectedSurvey() {
     const surveyId = document.getElementById('surveySelect').value;
     const surveys = JSON.parse(localStorage.getItem('surveys')) || [];
@@ -409,7 +420,6 @@ function displaySelectedSurvey() {
     }
 }
 
-// 설문 응답 제출 함수
 document.getElementById('submitSurvey').addEventListener('click', () => {
     const form = document.getElementById('surveyForm');
     const formData = new FormData(form);
@@ -417,8 +427,6 @@ document.getElementById('submitSurvey').addEventListener('click', () => {
     formData.forEach((value, key) => {
         results[key] = value;
     });
-    //console.log('Survey Results:', results);
-
     const responses = JSON.parse(localStorage.getItem('responses')) || [];
     responses.push(results);
     localStorage.setItem('responses', JSON.stringify(responses));
@@ -426,37 +434,35 @@ document.getElementById('submitSurvey').addEventListener('click', () => {
     showToast('surveyCompleted', 'success', lang);
     generateReport(responses);
 });
-
-// 응답 데이터를 분석하여 레포트 생성 함수
 function generateReport(responses) {
     const questions = JSON.parse(localStorage.getItem('questions'));
     const report = {};
-
+  
     questions.forEach(question => {
-        report[`question-${question.id}`] = {};
-        question.options.forEach(option => {
-            report[`question-${question.id}`][option] = 0;
-        });
+      report[`question-${question.id}`] = {};
+      question.options.forEach(option => {
+        report[`question-${question.id}`][option] = 0;
+      });
     });
-
+  
     responses.forEach(response => {
-        Object.keys(response).forEach(questionKey => {
-            const answer = response[questionKey];
-            if (answer && report[questionKey]) {
-                report[questionKey][answer]++;
-            }
-        });
+      Object.keys(response).forEach(questionKey => {
+        const answer = response[questionKey];
+        if (answer && report[questionKey]) {
+          report[questionKey][answer]++;
+        }
+      });
     });
-
+  
     displayReport(report);
-}
+    generateRecommendations(responses); // ✅ 추천 연동
+  }
+  
 
-// 레포트를 HTML로 표시 함수 (3개씩 한 줄)
 function displayReport(report) {
     const reportContainer = document.getElementById('reportContainer');
     reportContainer.innerHTML = '';
 
-    // Grid Layout 적용
     const gridContainer = document.createElement('div');
     gridContainer.className = 'grid grid-cols-3 gap-4'; // 3개씩 배치
     reportContainer.appendChild(gridContainer);
@@ -476,7 +482,7 @@ function displayReport(report) {
         // 캔버스 생성 및 CSS 적용
         const chartCanvas = document.createElement('canvas');
         chartCanvas.id = `chart-${question}`;
-        chartCanvas.className = 'w-full h-[300px]'; 
+        chartCanvas.className = 'w-full h-[300px]';
         questionDiv.appendChild(chartCanvas);
 
         gridContainer.appendChild(questionDiv);
@@ -506,7 +512,7 @@ function displayReport(report) {
 
         const options = {
             responsive: true,
-            maintainAspectRatio: true, // 🔥 비율 유지 비활성화
+            maintainAspectRatio: true,
             plugins: {
                 legend: {
                     position: 'top',
@@ -521,7 +527,7 @@ function displayReport(report) {
             }
         };
 
-        // 차트 그리기
+
         setTimeout(() => {
             new Chart(chartCanvas, {
                 type: 'pie',
@@ -533,7 +539,6 @@ function displayReport(report) {
 }
 
 
-// 드롭 존 설정
 const surveyContainer = document.getElementById('surveyContainer');
 surveyContainer.style.height = "700px";
 surveyContainer.addEventListener('dragover', handleDragOver);
@@ -544,7 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementsByClassName("tablinks")[0].click();
     fetchData();
 
-    // 모바일 보기 버튼 클릭 이벤트 추가
+
     document.getElementById('mobileViewButton').addEventListener('click', () => {
 
         startMobileSurvey();
@@ -553,7 +558,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-// 모바일 설문 시작 함수
+
 function startMobileSurvey() {
     const surveyForm = document.getElementById('surveyForm');
     const questions = Array.from(surveyForm.getElementsByClassName('question-box'));
@@ -563,7 +568,7 @@ function startMobileSurvey() {
 
     function showQuestion(index) {
         const mobileSurveyContentInner = document.getElementById('mobileSurveyContentInner');
-        //console.log(mobileSurveyContentInner);
+
         mobileSurveyContentInner.innerHTML = '';
         if (questions[index]) {
             const questionClone = questions[index].cloneNode(true);
@@ -576,7 +581,7 @@ function startMobileSurvey() {
                     responses[`question-${questions[index].dataset.id}`] = selectedOption.value;
                     nextQuestion();
                 } else {
-                    showToast('choice-q','warning',lang);
+                    showToast('choice-q', 'warning', lang);
                 }
             });
             questionClone.appendChild(nextButton);
@@ -589,7 +594,7 @@ function startMobileSurvey() {
             currentQuestionIndex++;
             showQuestion(currentQuestionIndex);
         } else {
-            showToast('all-answer','success',lang);
+            showToast('all-answer', 'success', lang);
             document.getElementById('mobileSurveyModal').classList.add('hidden');
             saveResponses();
         }
@@ -599,7 +604,7 @@ function startMobileSurvey() {
         const storedResponses = JSON.parse(localStorage.getItem('responses')) || [];
         storedResponses.push(responses);
         localStorage.setItem('responses', JSON.stringify(storedResponses));
-        showToast('surveyCompleted', 'success',lang);
+        showToast('surveyCompleted', 'success', lang);
 
         generateReport(storedResponses);
     }
@@ -607,3 +612,41 @@ function startMobileSurvey() {
     showQuestion(currentQuestionIndex);
     document.getElementById('mobileSurveyModal').classList.remove('hidden');
 }
+
+
+function generateRecommendations(responses) {
+    const container = document.getElementById('recommendationList');
+    container.innerHTML = '';
+  
+    const fakeProducts = [
+      {
+        name: '에너지 업 비타민 B',
+        purpose: '피로 개선 및 에너지 대사',
+        benefits: '비타민 B군 강화로 피로 회복',
+      },
+      {
+        name: '장건강 유산균 플러스',
+        purpose: '장 건강 및 소화 기능 향상',
+        benefits: '19종 복합 유산균 + 프리바이오틱스',
+      },
+      {
+        name: '이뮨 부스터 C+D+아연',
+        purpose: '면역력 강화',
+        benefits: '고함량 비타민C, D, 아연 함유',
+      }
+    ];
+  
+    fakeProducts.forEach(product => {
+      const card = document.createElement('div');
+      card.className = 'border rounded-lg p-3 bg-blue-50 shadow-sm';
+  
+      card.innerHTML = `
+        <h3 class="text-lg font-semibold text-blue-800">${product.name}</h3>
+        <p class="text-sm text-gray-600 mt-1">💡 ${product.purpose}</p>
+        <p class="text-sm mt-2 text-gray-800">${product.benefits}</p>
+      `;
+  
+      container.appendChild(card);
+    });
+  }
+  
