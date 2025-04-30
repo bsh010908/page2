@@ -372,17 +372,16 @@ const defaultMenuItems = [
     {
         id: "31",
         text: '소방시설관리',
-        icon: 'fa-sitemap',
+        icon: 'fa-fire-extinguisher', // 기존: fa-sitemap
         href: 'fire1.html',
         children: [
-            { id: "31", text: '소방시설점검', href: 'fire1.html', icon: 'fa-user-shield' },
-            { id: "32", text: '점검일정', href: 'calendar.html', icon: 'fa-file-alt' },
-            { id: "33", text: '소방시설점검', href: 'fire3.html', icon: 'fa-server' },
-            { id: "34", text: '소방시설점검', href: 'fire4.html', icon: 'fa-cubes' },
-
-
+            { id: "31", text: '소방시설점검', href: 'fire1.html', icon: 'fa-tools' }, // 기존: fa-user-shield
+            { id: "32", text: '점검일정(리프레시)', href: 'calendar.html', icon: 'fa-calendar-check' }, // 기존: fa-file-alt
+            { id: "33", text: '소방체크문항', href: 'survey.html', icon: 'fa-clipboard-list' }, // 기존: fa-server
+            { id: "34", text: '점검이력관리', href: 'fire2.html', icon: 'fa-history' } // 기존: fa-cubes
         ]
     }
+    
 
 ];
 

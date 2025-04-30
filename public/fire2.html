@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="assets/css/default.css" rel="stylesheet">
+    <style>
+        #download-report {
+          padding: 10px 10px 30px 10px;
+          margin-bottom: 10px;
+          background-color: #2563eb;
+          color: white;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          font-size: 14px;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+          transition: background-color 0.3s ease;
+        }
+      
+        #download-report:hover {
+          background-color: #1d4ed8;
+        }
+      </style>
+      
+</head>
+
+<body>
+    <div id="cmmContainer"></div>
+    <nav class="breadcrumb"></nav>
+
+    <div id="content" style="margin-top: 40px;">
+        <button id="download-report">보고서 다운로드</button>
+        <div id="inspection-grid" style="height: 400px;"></div>
+ 
+    </div>
+
+    <script type="module" src="assets/vendor/tui-pagination/dist/tui-pagination.js"></script>
+    <script type="module" src="assets/vendor/tui-grid/dist/tui-grid.js"></script>
+    <script type="module" src="assets/js/logomodule.js"></script>
+
+    <script type="module" src="assets/js/fire2.js"></script>
+
+</body>
+
+</html>
