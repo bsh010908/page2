@@ -368,6 +368,20 @@ const defaultMenuItems = [
 
 
         ]
+    },
+    {
+        id: "31",
+        text: '소방시설관리',
+        icon: 'fa-sitemap',
+        href: 'fire1.html',
+        children: [
+            { id: "31", text: '소방시설점검', href: 'fire1.html', icon: 'fa-user-shield' },
+            { id: "32", text: '점검일정', href: 'calendar.html', icon: 'fa-file-alt' },
+            { id: "33", text: '소방시설점검', href: 'fire3.html', icon: 'fa-server' },
+            { id: "34", text: '소방시설점검', href: 'fire4.html', icon: 'fa-cubes' },
+
+
+        ]
     }
 
 ];

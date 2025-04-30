@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="assets/css/default.css" rel="stylesheet">
+    <style>
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            margin: 8px 0;
+        }
+
+        input,
+        select,
+        textarea {
+            margin-left: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .section-title {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="cmmContainer"></div>
+    <nav class="breadcrumb"></nav>
+
+    <div id="content" style="margin-top: 40px;">
+
+        <div class="flex space-x-2 bg-gray-100 p-2 rounded-t-lg shadow-md">
+            <button
+                class="tablinks px-4 py-1 rounded-t-md hover:bg-white hover:text-blue-600 hover:font-semibold transition"
+                onclick="openTab(event, 'initial')">최초점검</button>
+            <button
+                class="tablinks px-4 py-1 rounded-t-md hover:bg-white hover:text-blue-600 hover:font-semibold transition"
+                onclick="openTab(event, 'operation')">작동점검</button>
+            <button
+                class="tablinks px-4 py-1 rounded-t-md hover:bg-white hover:text-blue-600 hover:font-semibold transition"
+                onclick="openTab(event, 'general')">종합점검</button>
+            <button
+                class="tablinks px-4 py-1 rounded-t-md hover:bg-white hover:text-blue-600 hover:font-semibold transition"
+                onclick="openTab(event, 'unit')">세대점검</button>
+        </div>
+        <div id="dbcontent">
+            <div id="initial" class="tab-content p-4 bg-white shadow rounded-b-md">
+                
+            </div>
+            <div id="operation" class="tab-content p-4 bg-white shadow rounded-b-md">
+                
+            </div>
+            <div id="general" class="tab-content p-4 bg-white shadow rounded-b-md">
+                
+            </div>
+            <div id="unit" class="tab-content p-4 bg-white shadow rounded-b-md">
+                
+            </div>
+
+            
+        </div>
+
+        <div style="margin-top:30px">
+
+            <div id="initialGrid"></div>
+            <div id="operationGrid"></div>
+            <div id="generalGrid"></div>
+            <div id="unitGrid"></div>
+        </div>
+
+        
+
+
+    </div>
+
+    <script type="module" src="assets/vendor/tui-pagination/dist/tui-pagination.js"></script>
+    <script type="module" src="assets/vendor/tui-grid/dist/tui-grid.js"></script>
+    <script type="module" src="assets/js/logomodule.js"></script>
+
+    <script type="module" src="assets/js/fire1.js"></script>
+
+</body>
+
+</html>

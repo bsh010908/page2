@@ -1,6 +1,7 @@
-import { 
+import {
 
-    createSaveButton } from './common.js';
+    createSaveButton
+} from './common.js';
 
 const calendar = (() => {
     const calendarContainer = document.getElementById('calendar');
@@ -15,13 +16,11 @@ const calendar = (() => {
     const saveTasks = async () => {
         try {
             for (const [date, events] of Object.entries(newTasks)) {
-                
+
                 const dateId = await saveDate(date);
-                
-                
-                
+
                 for (const event of events) {
-                    
+
                     const [time, description, eventId] = event.split(' - ');
                     await saveEvent(dateId, time, description, eventId);
                 }
@@ -65,7 +64,7 @@ const calendar = (() => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ date_id: dateId, time, description , event_id: eventId})
+                body: JSON.stringify({ date_id: dateId, time, description, event_id: eventId })
             });
 
             if (!response.ok) {
@@ -167,8 +166,8 @@ const calendar = (() => {
                     const taskItem = document.createElement('li');
                     taskItem.className = 'border-b py-2 flex justify-between items-center';
                     const taskText = document.createElement('span');
-                    
-                    taskText.innerText = `- ${task}`; 
+
+                    taskText.innerText = `- ${task}`;
 
                     taskItem.appendChild(taskText);
                     taskList.appendChild(taskItem);
@@ -250,7 +249,7 @@ const calendar = (() => {
                 showToast('select-delete', 'success', lang);
                 modal.remove();
                 renderCalendar(currentMonth, currentYear);
-                
+
             };
 
             taskItem.appendChild(taskText);
@@ -284,10 +283,8 @@ const calendar = (() => {
             const toDate = new Date(toDateInput.value);
 
             const now = new Date();
-            
-            const eventId = generateNanoId();
-            
 
+            const eventId = generateNanoId();
 
             if (newTask && time && fromDate <= toDate) {
                 let currentDate = fromDate;
@@ -301,8 +298,8 @@ const calendar = (() => {
                     if (!newTasks[dateKey]) {
                         newTasks[dateKey] = [];
                     }
-                    
-                    
+
+
                     newTasks[dateKey].push(`${time} - ${newTask} - ${eventId}`);
 
                     currentDate.setDate(currentDate.getDate() + 1);
@@ -364,7 +361,15 @@ const calendar = (() => {
         init: async () => {
             await fetchTasks();
             renderCalendar(currentMonth, currentYear);
+
+            // 5초마다 일정 다시 불러오기
+            setInterval(async () => {
+                await fetchTasks();
+                renderCalendar(currentMonth, currentYear);
+            }, 15000);
         }
+
+
     };
 })();
 
