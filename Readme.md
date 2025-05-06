@@ -60,3 +60,6 @@
 ## Set-ExecutionPolicy Restricted
 ## npm install -g autocannon
 ## autocannon -d 30 -c 50 http://localhost:3000/
+
+
+## pnpm run dev
