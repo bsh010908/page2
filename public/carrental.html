@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>차량 조건 선택</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+
+  <div class="w-full max-w-3xl bg-white p-8 rounded-2xl shadow-xl">
+    <h2 class="text-2xl font-bold mb-6">🚗 차량 조건 선택</h2>
+
+    <!-- 차종 -->
+    <div class="mb-4">
+      <label class="block font-semibold mb-1">차종</label>
+      <select id="carType" class="w-full border rounded px-3 py-2">
+        <option value="소형">소형</option>
+        <option value="중형">중형</option>
+        <option value="SUV">SUV</option>
+        <option value="승합">승합</option>
+      </select>
+    </div>
+
+    <!-- 기간 -->
+    <div class="mb-4">
+      <label class="block font-semibold mb-1">기간</label>
+      <div class="flex space-x-2">
+        <input type="number" id="duration" value="1" min="1" class="w-1/2 border rounded px-3 py-2" />
+        <select id="durationUnit" class="w-1/2 border rounded px-3 py-2">
+          <option value="일">일</option>
+          <option value="월">월</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 주행거리 -->
+    <div class="mb-4">
+      <label class="block font-semibold mb-1">주행거리 (km)</label>
+      <input type="range" id="distance" min="0" max="1000" value="100" step="50" class="w-full" />
+      <p class="text-sm mt-1">현재: <span id="distanceDisplay">100</span> km</p>
+    </div>
+
+    <!-- 운전자 범위 -->
+    <div class="mb-4">
+      <label class="block font-semibold mb-1">운전자 범위</label>
+      <div class="space-x-4">
+        <label><input type="radio" name="driver" value="개인" checked class="mr-1">개인</label>
+        <label><input type="radio" name="driver" value="법인" class="mr-1">법인</label>
+      </div>
+    </div>
+
+    <!-- 연료 종류 -->
+    <div class="mb-4">
+      <label class="block font-semibold mb-1">연료 종류</label>
+      <select id="fuelType" class="w-full border rounded px-3 py-2">
+        <option value="휘발유">휘발유</option>
+        <option value="경유">경유</option>
+        <option value="전기">전기</option>
+        <option value="하이브리드">하이브리드</option>
+      </select>
+    </div>
+
+    <!-- 옵션 -->
+    <div class="mb-4">
+      <label class="block font-semibold mb-1">옵션</label>
+      <div class="space-y-2">
+        <label class="block"><input type="checkbox" value="내비게이션" class="option mr-2">내비게이션</label>
+        <label class="block"><input type="checkbox" value="후방카메라" class="option mr-2">후방카메라</label>
+        <label class="block"><input type="checkbox" value="열선시트" class="option mr-2">열선시트</label>
+        <label class="block"><input type="checkbox" value="썬루프" class="option mr-2">썬루프</label>
+      </div>
+    </div>
+
+    <!-- 결과 -->
+    <div id="resultBox" class="mt-6 p-4 border rounded bg-gray-50 text-sm leading-relaxed">
+      선택한 항목이 이곳에 표시됩니다.
+    </div>
+  </div>
+
+  <script>
+    const elements = {
+      carType: document.getElementById("carType"),
+      duration: document.getElementById("duration"),
+      durationUnit: document.getElementById("durationUnit"),
+      distance: document.getElementById("distance"),
+      distanceDisplay: document.getElementById("distanceDisplay"),
+      fuelType: document.getElementById("fuelType"),
+      resultBox: document.getElementById("resultBox"),
+      driverRadios: document.querySelectorAll('input[name="driver"]'),
+      options: document.querySelectorAll('.option')
+    };
+
+    elements.distance.addEventListener("input", () => {
+      elements.distanceDisplay.textContent = elements.distance.value;
+      updateResult();
+    });
+
+    [elements.carType, elements.duration, elements.durationUnit, elements.fuelType,
+     ...elements.driverRadios, ...elements.options].forEach(el => el.addEventListener("change", updateResult));
+
+    function updateResult() {
+      const driver = Array.from(elements.driverRadios).find(r => r.checked).value;
+      const selectedOptions = Array.from(elements.options)
+        .filter(opt => opt.checked)
+        .map(opt => opt.value)
+        .join(", ") || "없음";
+
+      const resultText = `
+        ✅ <strong>차종</strong>: ${elements.carType.value}<br/>
+        ✅ <strong>기간</strong>: ${elements.duration.value} ${elements.durationUnit.value}<br/>
+        ✅ <strong>주행거리</strong>: ${elements.distance.value} km<br/>
+        ✅ <strong>운전자 범위</strong>: ${driver}<br/>
+        ✅ <strong>연료</strong>: ${elements.fuelType.value}<br/>
+        ✅ <strong>옵션</strong>: ${selectedOptions}
+      `;
+      elements.resultBox.innerHTML = resultText;
+    }
+
+    updateResult();
+  </script>
+
+</body>
+</html>
