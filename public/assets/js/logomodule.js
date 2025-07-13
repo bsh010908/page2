@@ -278,93 +278,93 @@ const defaultMenuItems = [
         id: "2",
         text: '업무일정',
         icon: 'fa-calendar-alt',
-        href: 'calendar.html',
+        href: 'calendar',
         children: [
-            { id: "21", text: '프로젝트일정', href: 'trello.html', icon: 'fa-tasks' },
-            { id: "19", text: '생산일정', href: 'timeline.html', icon: 'fa-industry' }
+            { id: "21", text: '프로젝트일정', href: 'trello', icon: 'fa-tasks' },
+            { id: "19", text: '생산일정', href: 'timeline', icon: 'fa-industry' }
         ]
     },
     {
         id: "14",
         text: '조직도구성',
         icon: 'fa-sitemap',
-        href: 'orgni.html',
+        href: 'orgni',
         children: [
-            { id: "1", text: '근태관리', href: 'attend.html', icon: 'fa-user-clock' },
-            { id: "20", text: '인센티브', href: 'total.html', icon: 'fa-gift' },
-            { id: "24", text: 'KEG-Code', href: 'kegcode.html', icon: 'fa-gift' },
-            { id: "25", text: 'KEG-Editor', href: 'kegeditor.html', icon: 'fa-gift' },
-            { id: "26", text: 'KEG-Editor2', href: 'kegeditor2.html', icon: 'fa-gift' },
-            { id: "28", text: 'KEG-Tree', href: 'orgsel.html', icon: 'fa-gift' }
+            { id: "1", text: '근태관리', href: 'attend', icon: 'fa-user-clock' },
+            { id: "20", text: '인센티브', href: 'total', icon: 'fa-gift' },
+            { id: "24", text: 'KEG-Code', href: 'kegcode', icon: 'fa-gift' },
+            { id: "25", text: 'KEG-Editor', href: 'kegeditor', icon: 'fa-gift' },
+            { id: "26", text: 'KEG-Editor2', href: 'kegeditor2', icon: 'fa-gift' },
+            { id: "28", text: 'KEG-Tree', href: 'orgsel', icon: 'fa-gift' }
         ]
     },
     {
         id: "16",
         text: '회원통계',
         icon: 'fa-user',
-        href: 'stati.html',
+        href: 'stati',
         children: [
-            { id: "7", text: '매출통계', href: 'flow.html', icon: 'fa-chart-line' },
-            { id: "3", text: '체인운영', href: 'chain.html', icon: 'fa-store-alt' }
+            { id: "7", text: '매출통계', href: 'flow', icon: 'fa-chart-line' },
+            { id: "3", text: '체인운영', href: 'chain', icon: 'fa-store-alt' }
         ]
     },
     {
         id: "23",
         text: '예약관리',
         icon: 'fa-calendar-plus',
-        href: 'work.html',
+        href: 'work',
         children: [
-            { id: "12", text: '회의실관리', href: 'meeting.html', icon: 'fa-door-open' },
-            { id: "9", text: '병원예약', href: 'hospital.html', icon: 'fa-hospital' },
-            { id: "11", text: '강의일정', href: 'lectures.html', icon: 'fa-chalkboard-teacher' },
-            { id: "4", text: '행정구역정보', href: 'city.html', icon: 'fa-map-marked-alt' }
+            { id: "12", text: '회의실관리', href: 'meeting', icon: 'fa-door-open' },
+            { id: "9", text: '병원예약', href: 'hospital', icon: 'fa-hospital' },
+            { id: "11", text: '강의일정', href: 'lectures', icon: 'fa-chalkboard-teacher' },
+            { id: "4", text: '행정구역정보', href: 'city', icon: 'fa-map-marked-alt' }
         ]
     },
     {
         id: "5",
         text: '시스템로그',
         icon: 'fa-clipboard-list',
-        href: 'config.html',
+        href: 'config',
         children: [
-            { id: "13", text: '컨설팅지정', href: 'network.html', icon: 'fa-network-wired' },
-            { id: "17", text: '서베이', href: 'survey.html', icon: 'fa-poll' },
-            { id: "10", text: '사물함', href: 'locker.html', icon: 'fa-archive' }
+            { id: "13", text: '컨설팅지정', href: 'network', icon: 'fa-network-wired' },
+            { id: "17", text: '서베이', href: 'survey', icon: 'fa-poll' },
+            { id: "10", text: '사물함', href: 'locker', icon: 'fa-archive' }
         ]
     },
     {
         id: "18",
         text: '코드관리',
         icon: 'fa-server',
-        href: 'system.html',
+        href: 'system',
         children: [
-            { id: "8", text: '용어관리', href: 'glos.html', icon: 'fa-book' },
-            { id: "15", text: '권한관리', href: 'orgtree.html', icon: 'fa-user-shield' },
-            { id: "6", text: '문서관리', href: 'document.html', icon: 'fa-file-alt' },
-            { id: "22", text: 'WMS', href: 'wms.html', icon: 'fa-cubes' },
-            { id: "27", text: '3D도안', href: 'box.html', icon: 'fa-cubes' }
+            { id: "8", text: '용어관리', href: 'glos', icon: 'fa-book' },
+            { id: "15", text: '권한관리', href: 'orgtree', icon: 'fa-user-shield' },
+            { id: "6", text: '문서관리', href: 'document', icon: 'fa-file-alt' },
+            { id: "22", text: 'WMS', href: 'wms', icon: 'fa-cubes' },
+            { id: "27", text: '3D도안', href: 'box', icon: 'fa-cubes' }
         ]
     },
     {
         id: "29",
         text: '쿠폰관리',
         icon: 'fas fa-ticket-alt',
-        href: 'coupon.html',
+        href: 'coupon',
         children: [
-            { id: "30", text: '쿠폰발행', href: 'makecpn.html', icon: 'fas fa-plus-circle' },
-            { id: "31", text: '쿠폰사용', href: 'usecpn.html', icon: 'fas fa-check-circle' },
-            { id: "32", text: '쿠폰연동', href: 'relcpn.html', icon: 'fas fa-link' }
+            { id: "30", text: '쿠폰발행', href: 'makecpn', icon: 'fas fa-plus-circle' },
+            { id: "31", text: '쿠폰사용', href: 'usecpn', icon: 'fas fa-check-circle' },
+            { id: "32", text: '쿠폰연동', href: 'relcpn', icon: 'fas fa-link' }
         ]
     },
     {
         id: "14",
         text: '조직도관리',
         icon: 'fa-sitemap',
-        href: 'orgni.html',
+        href: 'orgni',
         children: [
-            { id: "15", text: '조직권한관리(예시)', href: 'orgtree.html', icon: 'fa-user-shield' },
-            { id: "6", text: '문서권한관리(예시)', href: 'document.html', icon: 'fa-file-alt' },
-            { id: "18", text: '입출력권한관리(예시)', href: 'system.html', icon: 'fa-server' },
-            { id: "30", text: '컨트롤러권한관리', href: 'copyright.html', icon: 'fa-cubes' },
+            { id: "15", text: '조직권한관리(예시)', href: 'orgtree', icon: 'fa-user-shield' },
+            { id: "6", text: '문서권한관리(예시)', href: 'document', icon: 'fa-file-alt' },
+            { id: "18", text: '입출력권한관리(예시)', href: 'system', icon: 'fa-server' },
+            { id: "30", text: '컨트롤러권한관리', href: 'copyright', icon: 'fa-cubes' },
 
 
         ]
@@ -373,12 +373,12 @@ const defaultMenuItems = [
         id: "31",
         text: '소방시설관리',
         icon: 'fa-fire-extinguisher', // 기존: fa-sitemap
-        href: 'fire1.html',
+        href: 'fire1',
         children: [
-            { id: "31", text: '소방시설점검', href: 'fire1.html', icon: 'fa-tools' }, // 기존: fa-user-shield
-            { id: "32", text: '점검일정(리프레시)', href: 'calendar.html', icon: 'fa-calendar-check' }, // 기존: fa-file-alt
-            { id: "33", text: '소방체크문항', href: 'survey.html', icon: 'fa-clipboard-list' }, // 기존: fa-server
-            { id: "34", text: '점검이력관리', href: 'fire2.html', icon: 'fa-history' } // 기존: fa-cubes
+            { id: "31", text: '소방시설점검', href: 'fire1', icon: 'fa-tools' }, // 기존: fa-user-shield
+            { id: "32", text: '점검일정(리프레시)', href: 'calendar', icon: 'fa-calendar-check' }, // 기존: fa-file-alt
+            { id: "33", text: '소방체크문항', href: 'survey', icon: 'fa-clipboard-list' }, // 기존: fa-server
+            { id: "34", text: '점검이력관리', href: 'fire2', icon: 'fa-history' } // 기존: fa-cubes
         ]
     }
     
@@ -429,7 +429,7 @@ createModal(
     '로그아웃 하시겠습니까?',
     '',
     [
-        { label: '로그아웃', class: 'bg-blue-500 text-white ', onClick: "window.location.href='login.html';" },
+        { label: '로그아웃', class: 'bg-blue-500 text-white ', onClick: "window.location.href='login';" },
         { label: '닫기', class: 'bg-gray-500 text-white ', onClick: "document.getElementById('logoutModal').classList.add('hidden');" }
     ]
 );
@@ -504,13 +504,13 @@ function renderFloatingNav(containerId) {
 renderFloatingNav('appContainer');
 
 const tabsData = [
-    { href: "system.html", icon: "fas fa-cogs", label: "시스템관리" },
-    { href: "orgni.html", icon: "fas fa-users", label: "조직관리" },
-    { href: "work.html", icon: "fas fa-building", label: "업무관리" },
-    { href: "calendar.html", icon: "fas fa-calendar-alt", label: "일정관리" },
-    { href: "stati.html", icon: "fas fa-chart-bar", label: "통계" },
-    { href: "config.html", icon: "fas fa-tools", label: "설정관리" },
-    { href: "coupon.html", icon: "fas fa-briefcase", label: "사업관리" },
+    { href: "system", icon: "fas fa-cogs", label: "시스템관리" },
+    { href: "orgni", icon: "fas fa-users", label: "조직관리" },
+    { href: "work", icon: "fas fa-building", label: "업무관리" },
+    { href: "calendar", icon: "fas fa-calendar-alt", label: "일정관리" },
+    { href: "stati", icon: "fas fa-chart-bar", label: "통계" },
+    { href: "config", icon: "fas fa-tools", label: "설정관리" },
+    { href: "coupon", icon: "fas fa-briefcase", label: "사업관리" },
 ];
 
 function renderTabs(containerId) {
@@ -652,12 +652,12 @@ window.offCanvasItems = offCanvasItems;
 const menuLinks = document.querySelectorAll(".gnb-item");
 const menuLinks2 = document.querySelectorAll(".menu-item");
 
-const orgniPages = ["orgni.html", "attend.html", "total.html", "kegcode.html", "kegeditor.html", "kegeditor2.html"];
+const orgniPages = ["orgni", "attend", "total", "kegcode", "kegeditor", "kegeditor2"];
 if (orgniPages.includes(currentPage)) {
     menuLinks2.forEach((link) => {
         if (link.getAttribute("href") === currentPage) {
             menuLinks.forEach((menuLink) => {
-                if (menuLink.getAttribute("href") === "orgni.html") {
+                if (menuLink.getAttribute("href") === "orgni") {
                     menuLink.classList.add("active");
                 } else {
                     menuLink.classList.remove("active");
@@ -667,12 +667,12 @@ if (orgniPages.includes(currentPage)) {
     });
 }
 
-const systemPages = ["system.html", "glos.html", "orgtree.html", "document.html", "wms.html"];
+const systemPages = ["system", "glos", "orgtree", "document", "wms"];
 if (systemPages.includes(currentPage)) {
     menuLinks2.forEach((link) => {
         if (link.getAttribute("href") === currentPage) {
             menuLinks.forEach((menuLink) => {
-                if (menuLink.getAttribute("href") === "system.html") {
+                if (menuLink.getAttribute("href") === "system") {
                     menuLink.classList.add("active");
                 } else {
                     menuLink.classList.remove("active");
@@ -682,12 +682,12 @@ if (systemPages.includes(currentPage)) {
     });
 }
 
-const workPages = ["work.html", "hospital.html", "meeting.html", "lectures.html", "city.html"];
+const workPages = ["work", "hospital", "meeting", "lectures", "city"];
 if (workPages.includes(currentPage)) {
     menuLinks2.forEach((link) => {
         if (link.getAttribute("href") === currentPage) {
             menuLinks.forEach((menuLink) => {
-                if (menuLink.getAttribute("href") === "work.html") {
+                if (menuLink.getAttribute("href") === "work") {
                     menuLink.classList.add("active");
                 } else {
                     menuLink.classList.remove("active");
@@ -697,12 +697,12 @@ if (workPages.includes(currentPage)) {
     });
 }
 
-const calendarPages = ["calendar.html", "trello.html", "timeline.html"];
+const calendarPages = ["calendar", "trello", "timeline"];
 if (calendarPages.includes(currentPage)) {
     menuLinks2.forEach((link) => {
         if (link.getAttribute("href") === currentPage) {
             menuLinks.forEach((menuLink) => {
-                if (menuLink.getAttribute("href") === "calendar.html") {
+                if (menuLink.getAttribute("href") === "calendar") {
                     menuLink.classList.add("active");
                 } else {
                     menuLink.classList.remove("active");
@@ -712,12 +712,12 @@ if (calendarPages.includes(currentPage)) {
     });
 }
 
-const statiPages = ["stati.html", "flow.html", "chain.html"];
+const statiPages = ["stati", "flow", "chain"];
 if (statiPages.includes(currentPage)) {
     menuLinks2.forEach((link) => {
         if (link.getAttribute("href") === currentPage) {
             menuLinks.forEach((menuLink) => {
-                if (menuLink.getAttribute("href") === "stati.html") {
+                if (menuLink.getAttribute("href") === "stati") {
                     menuLink.classList.add("active");
                 } else {
                     menuLink.classList.remove("active");
@@ -727,12 +727,12 @@ if (statiPages.includes(currentPage)) {
     });
 }
 
-const configPages = ["config.html", "network.html", "survey.html", "locker.html"];
+const configPages = ["config", "network", "survey", "locker"];
 if (configPages.includes(currentPage)) {
     menuLinks2.forEach((link) => {
         if (link.getAttribute("href") === currentPage) {
             menuLinks.forEach((menuLink) => {
-                if (menuLink.getAttribute("href") === "config.html") {
+                if (menuLink.getAttribute("href") === "config") {
                     menuLink.classList.add("active");
                 } else {
                     menuLink.classList.remove("active");

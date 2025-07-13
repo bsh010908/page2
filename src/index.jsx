@@ -18,6 +18,6 @@ if (!isLoggedIn) {
     location.href = favoritePath.url;
   } else {
     // 없으면 기본 경로로 이동
-    location.href = 'system.html';
+    location.href = 'system';
   }
 }

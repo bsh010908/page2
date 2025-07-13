@@ -34,6 +34,8 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
+
+
 // 정적 파일 및 이미지 업로드
 const storage = multer.diskStorage({
   destination: './public/uploads/',
@@ -109,6 +111,17 @@ app.get('/protected', authenticateJWT, (req, res) => {
 });
 
 // 기본 경로
+// 확장자 없이 HTML 파일 접근
+app.get('/:page', (req, res, next) => {
+  const page = req.params.page;
+  const filePath = path.join(__dirname, 'public', `${page}.html`);
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      next(); // 파일 없을 경우 404로 넘기기
+    }
+  });
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
