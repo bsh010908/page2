@@ -3,10 +3,10 @@
     "version": "1.0.0",
     "description": "An Express.js server for handling inbound and outbound data",
     "main": "server.js",
-    
     "scripts": {
         "start": "nohup node server.js > output.log 2>&1 &",
         "dev": "nodemon server.js",
+        "client": "vite",
         "build": "vite build",
         "postbuild": "node scripts/obfuscate.js",
         "open": "open http://localhost:3000",
@@ -22,6 +22,7 @@
         "body-parser": "^1.20.3",
         "chart.js": "^4.4.7",
         "cors": "^2.8.5",
+        "dotenv": "^17.2.1",
         "express": "^4.21.2",
         "express-actuator": "^1.8.4",
         "fs": "^0.0.1-security",
