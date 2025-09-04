@@ -1,35 +1,50 @@
-const mockGroupList = [
-  { groupcode: "A01", groupname: "공통코드", enabletype: "Y", regsitecode: "MAIN" },
-  { groupcode: "B02", groupname: "상태코드", enabletype: "N", regsitecode: "SUB" },
-  { groupcode: "A02", groupname: "모모모코드", enabletype: "Y", regsitecode: "MAIN" },
-  { groupcode: "B03", groupname: "상태고고고", enabletype: "N", regsitecode: "SUB" }
-];
-
 let leftGridApi = null;
 let rightGridApi = null;
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  // ✅ Drag 스타일 정의
   const style = document.createElement("style");
   style.textContent = `
     .ag-row-drag { cursor: grab; }
     .ag-row-dragging { cursor: grabbing !important; }
+    .dragging-row-highlight { background-color: #e0f7fa !important; }
   `;
   document.head.appendChild(style);
 
+  // ✅ localStorage 에 저장된 데이터 확인
   const savedLeftData = localStorage.getItem("leftGridData");
   const savedRightData = localStorage.getItem("rightGridData");
 
-  const initialLeftData = savedLeftData ? JSON.parse(savedLeftData) : mockGroupList;
-  const initialRightData = savedRightData ? JSON.parse(savedRightData) : [];
+  let initialLeftData;
+  let initialRightData;
+
+  if (savedLeftData && savedRightData) {
+    initialLeftData = JSON.parse(savedLeftData);
+    initialRightData = JSON.parse(savedRightData);
+  } else {
+    // ✅ dummyjson API에서 데이터 가져오기
+    const response = await fetch("https://dummyjson.com/posts");
+    const result = await response.json();
+
+    // ✅ posts → grid 데이터로 매핑
+    initialLeftData = result.posts.slice(0, 10).map(post => ({
+      groupcode: "P" + post.id,
+      groupname: post.title,
+      enabletype: post.id % 2 === 0 ? "Y" : "N",
+      regsitecode: post.userId % 2 === 0 ? "MAIN" : "SUB"
+    }));
+    initialRightData = [];
+  }
 
   setupMasterGrid(initialLeftData);
   setupDetailGrid(initialRightData);
+
+  // ✅ breadcrumb 텍스트 고정
+  const breadcrumb = document.querySelector(".breadcrumb");
+  if (breadcrumb) breadcrumb.textContent = "KEG-Editor";
 });
 
-
-const draggingRowKeys = new Set();
-
-
+/* ---------------- Grid Setup ---------------- */
 function setupMasterGrid(data) {
   const columnDefs = [
     { rowDrag: true, checkboxSelection: true, headerCheckboxSelection: true, width: 60 },
@@ -53,17 +68,7 @@ function setupMasterGrid(data) {
     animateRows: true,
     onGridReady: params => {
       leftGridApi = params.api;
-      registerDropZones(); 
-    },
-    
-    onRowDragEnd: event => {
-      const draggedData = event.node.data;
-      const from = "left";
-      moveRows(draggedData, from);
-    },
-    getRowClass: params => {
-      const isDragging = draggingRowKeys.has(params.data.groupcode);
-      return isDragging ? 'dragging-row-highlight' : '';
+      registerDropZones();
     }
   };
 
@@ -96,12 +101,6 @@ function setupDetailGrid(data) {
     onGridReady: params => {
       rightGridApi = params.api;
       registerDropZones();
-    },
-    
-    onRowDragEnd: event => {
-      const draggedData = event.node.data;
-      const from = "right";
-      moveRows(draggedData, from);
     }
   };
 
@@ -109,49 +108,32 @@ function setupDetailGrid(data) {
   gridDiv.innerHTML = "";
   agGrid.createGrid(gridDiv, gridOptions);
 }
+
+/* ---------------- Drag & Drop ---------------- */
 function registerDropZones() {
   if (leftGridApi && rightGridApi) {
-    
     const toRightZone = rightGridApi.getRowDropZoneParams({
       onDragStop: event => {
         const dragged = event.node.data;
-        let selected = [];
-
-        try {
-          selected = leftGridApi.getSelectedRows();
-        } catch (e) {
-          selected = [];
-        }
-
-        const isMultiDrag = Array.isArray(selected) && selected.length > 1 && selected.some(r => r.groupcode === dragged.groupcode);
-        const rowsToMove = isMultiDrag ? selected : [dragged];
-
-        moveRows(rowsToMove, "left");
+        let selected = leftGridApi.getSelectedRows();
+        if (!(Array.isArray(selected) && selected.length > 0)) selected = [dragged];
+        moveRows(selected, "left");
       }
     });
     leftGridApi.addRowDropZone(toRightZone);
 
-    
     const toLeftZone = leftGridApi.getRowDropZoneParams({
       onDragStop: event => {
         const dragged = event.node.data;
-        let selected = [];
-
-        try {
-          selected = rightGridApi.getSelectedRows();
-        } catch (e) {
-          selected = [];
-        }
-
-        const isMultiDrag = Array.isArray(selected) && selected.length > 1 && selected.some(r => r.groupcode === dragged.groupcode);
-        const rowsToMove = isMultiDrag ? selected : [dragged];
-
-        moveRows(rowsToMove, "right");
+        let selected = rightGridApi.getSelectedRows();
+        if (!(Array.isArray(selected) && selected.length > 0)) selected = [dragged];
+        moveRows(selected, "right");
       }
     });
     rightGridApi.addRowDropZone(toLeftZone);
   }
 }
+
 function moveRows(draggedRows, from) {
   const sourceApi = from === "left" ? leftGridApi : rightGridApi;
   const targetApi = from === "left" ? rightGridApi : leftGridApi;
@@ -170,17 +152,14 @@ function moveRows(draggedRows, from) {
     setupDetailGrid(filteredSource);
   }
 
-  
   const newLeftData = from === "left" ? filteredSource : mergedTarget;
   const newRightData = from === "left" ? mergedTarget : filteredSource;
 
   localStorage.setItem("leftGridData", JSON.stringify(newLeftData));
   localStorage.setItem("rightGridData", JSON.stringify(newRightData));
-
-  showToast(`${draggedRows.length}건 이동 완료`);
 }
 
-
+/* ---------------- Utilities ---------------- */
 function getCurrentRowData(api) {
   const rowData = [];
   api.forEachNode(node => rowData.push(node.data));
@@ -189,25 +168,16 @@ function getCurrentRowData(api) {
 
 function removeSelectedFromSource(sourceData, selected) {
   if (!Array.isArray(selected)) return sourceData;
-
   const selectedKeys = new Set(selected.map(row => row.groupcode));
   return sourceData.filter(row => !selectedKeys.has(row.groupcode));
 }
 
-
 function mergeUniqueRows(target, added) {
-  console.log("target.type: ", target.type);
-  console.log("added.type: ", added.type);
-
   const map = new Map();
   [...added, ...target].forEach(row => {
-    if (row && typeof row === 'object' && 'groupcode' in row) {
+    if (row && typeof row === "object" && "groupcode" in row) {
       map.set(row.groupcode, row);
     }
   });
   return Array.from(map.values());
 }
-
-
-
-breadcrumb.textContent = "KEG-Editor"
