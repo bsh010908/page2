@@ -1,25 +1,29 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="ko">
 <head>
-    <link href="assets/css/flow.css" rel="stylesheet">
+  <meta charset="utf-8" />
+  <title>조직도 대시보드</title>
+  <link href="assets/css/flow.css" rel="stylesheet">
+    <link href="assets/css/조직도.css" rel="stylesheet">
+
 </head>
 
 <body>
-    <div id="cmmContainer"></div>
-    <nav class="breadcrumb"></nav>
-    
-    <div id="content">
-        
-        <div id="workarea">
-            <canvas id="orgChartCanvas" width="1600" height="750"></canvas>
-        </div>
+  <!-- 상단 로고/네비게이션 -->
+  <div id="cmmContainer"></div>
+  <nav class="breadcrumb"></nav>
+  
+  <!-- 대시보드 콘텐츠 -->
+  <div id="content">
+    <div id="workarea">
+      <!-- 조직도 캔버스 대신 SVG -->
+      <svg id="orgChartCanvas" width="1600" height="750"></svg>
     </div>
+  </div>
 
-    <script type="module" src="assets/js/logomodule.js"></script>
-    
-    <script type="module" src="assets/js/orgni.js"></script>
-    
+  <!-- 로고 모듈 -->
+  <script type="module" src="assets/js/logomodule.js"></script>
+  <!-- 조직도 모듈 -->
+  <script type="module" src="assets/js/orgni.js"></script>
 </body>
-
 </html>

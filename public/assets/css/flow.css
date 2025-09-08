@@ -79,3 +79,43 @@
 .handsontable .ht_master .htCore .htDimmed {
     color: #999;
 }
+
+/* ── 영화 검색 툴바 ─────────────────────────────── */
+.toolbar {
+  position: absolute;
+  /* 헤더 높이만큼 아래로 내림(필요하면 숫자만 조절) */
+  top: 70px;        /* ← 헤더가 60~70px쯤이면 70px 권장 */
+  left: 90px;       /* 좌측 사이드바 피해서 시작 */
+  z-index: 2000;    /* 헤더/사이드바 위에 오게 */
+  display: flex; gap: 8px; align-items: center;
+  background: #ffffffcc; backdrop-filter: blur(6px);
+  border: 1px solid #e5e7eb; border-radius: 10px;
+  padding: 8px 10px; box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+.toolbar input {
+  width: 260px; height: 34px; border: 1px solid #e5e7eb;
+  border-radius: 8px; padding: 0 10px; outline: none;
+  font: 14px/1 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+}
+.toolbar button {
+  height: 34px; padding: 0 12px; border-radius: 8px; border: 1px solid #0ea5e9;
+  background: #0ea5e9; color: #fff; font-weight: 600; cursor: pointer;
+}
+.toolbar .note { font-size: 12px; color: #6b7280; margin-left: 6px; }
+
+.autocomplete {
+  position: absolute;
+  top: 112px;   /* = toolbar top(70) + 높이(약 42) */
+  left: 90px;
+  z-index: 2100;
+  width: 360px; max-height: 320px; overflow: auto;
+  background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+.autocomplete .item {
+  padding: 10px 12px; cursor: pointer;
+  display: flex; justify-content: space-between; gap: 8px;
+}
+.autocomplete .item:hover { background: #f8fafc; }
+.autocomplete .title { font-weight: 600; color: #111827; }
+.autocomplete .meta { font-size: 12px; color: #6b7280; }
