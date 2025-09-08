@@ -1,16 +1,22 @@
-const mockGroupList = [
-  { groupcode: "A01", groupname: "공통코드", enabletype: "Y", regsitecode: "MAIN" },
-  { groupcode: "B02", groupname: "상태코드", enabletype: "N", regsitecode: "SUB" },
-  { groupcode: "A02", groupname: "모모모코드", enabletype: "Y", regsitecode: "MAIN" },
-  { groupcode: "B03", groupname: "상태고고고", enabletype: "N", regsitecode: "SUB" }
-];
-
 let leftGridApi = null;
 let rightGridApi = null;
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  // ✅ JSONPlaceholder에서 데이터 가져오기
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const posts = await response.json();
+
+  // ✅ posts → grid용 데이터 변환
+  const mockGroupList = posts.slice(0, 10).map(post => ({
+    groupcode: "P" + post.id,        // post.id → 그룹코드
+    groupname: post.title,           // post.title → 그룹명
+    enabletype: post.id % 2 === 0 ? "Y" : "N", // 짝수면 Y, 홀수면 N
+    regsitecode: post.userId % 2 === 0 ? "MAIN" : "SUB" // userId 기준으로 MAIN/SUB 분리
+  }));
+
   setupMasterGrid(mockGroupList);
   setupDetailGrid([]);
+  breadcrumb.textContent = "KEG-Editor"; // ✅ 기존 breadcrumb 유지
 });
 
 function setupMasterGrid(data) {
@@ -85,7 +91,7 @@ function removeSelectedFromSource(sourceData, selected) {
 function mergeUniqueRows(target, added) {
   const map = new Map();
   [...target, ...added].forEach(row => {
-    map.set(row.groupcode, row); // groupcode 기준으로 중복 제거
+    map.set(row.groupcode, row);
   });
   return Array.from(map.values());
 }
@@ -119,7 +125,3 @@ document.getElementById("btn-move-left").addEventListener("click", () => {
   setupMasterGrid(newLeft);
   setupDetailGrid(newRight);
 });
-
-
-
-breadcrumb.textContent = "KEG-Editor"
