@@ -236,7 +236,7 @@ const iconMapping = {
     "프로젝트일정": "fa-tasks",
 
     "생산일정": "fa-industry",
-    "회원통계": "fa-user",
+    "평점": "fa-user",
     "매출통계": "fa-chart-line",
     "체인운영": "fa-store-alt",
     "예약관리": "fa-calendar-plus",
@@ -300,7 +300,7 @@ const defaultMenuItems = [
     },
     {
         id: "16",
-        text: '회원통계',
+        text: '평점',
         icon: 'fa-user',
         href: 'stati',
         children: [
@@ -504,10 +504,10 @@ function renderFloatingNav(containerId) {
 renderFloatingNav('appContainer');
 
 const tabsData = [
-    { href: "system", icon: "fas fa-cogs", label: "시스템관리" },
+    { href: "system", icon: "fas fa-cogs", label: "영화검색" },
     { href: "orgni", icon: "fas fa-users", label: "조직관리" },
     { href: "work", icon: "fas fa-building", label: "업무관리" },
-    { href: "calendar", icon: "fas fa-calendar-alt", label: "일정관리" },
+    { href: "calendar", icon: "fas fa-calendar-alt", label: "개봉날짜" },
     { href: "stati", icon: "fas fa-chart-bar", label: "통계" },
     { href: "config", icon: "fas fa-tools", label: "설정관리" },
     { href: "coupon", icon: "fas fa-briefcase", label: "사업관리" },

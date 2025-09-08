@@ -95,16 +95,16 @@ const createTanslations = {
   ko: {
     menu: "메뉴",
     tabs: {
-      system: "시스템관리",
+      system: "영화검색",
       organization: "조직관리",
       task: "업무관리",
-      schedule: "일정관리",
+      schedule: "개봉날짜",
       statistics: "통계",
       settings: "설정관리",
       biz: "사업관리",
     },
     offCanvas: {
-      system: "코드관리",
+      system: "영화검색",
       glos: "용어관리",
       orgtree: "권한관리",
       document: "문서관리",
