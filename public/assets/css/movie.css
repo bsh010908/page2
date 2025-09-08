@@ -34,3 +34,61 @@
     color: #555;
     margin-bottom: 10px;
 }
+/* 우측 상세 패널 */
+.movie-detail {
+  position: fixed;        /* 화면 오른쪽에 고정 */
+  top: 120px;             /* 헤더/네비 높이에 맞춰 조절 */
+  right: 24px;
+  width: 380px;
+  max-height: calc(100vh - 160px);
+  overflow: auto;
+  display: none;          /* 처음엔 숨김 */
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.18);
+  padding: 16px;
+  z-index: 50;
+}
+
+.movie-detail.open { display: block; }
+
+.mdp-header { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
+.mdp-poster { width: 96px; height: 144px; border-radius: 10px; object-fit: cover; background: #eee; }
+.mdp-title { font-size: 18px; font-weight: 700; line-height: 1.2; }
+.mdp-meta { font-size: 13px; color: #666; margin-top: 2px; }
+
+.mdp-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.mdp-chip { padding: 4px 8px; border-radius: 999px; background: #f2f3f5; font-size: 12px; }
+
+.mdp-overview { font-size: 14px; color: #333; margin: 12px 0; line-height: 1.6; }
+
+.mdp-actions { display: flex; gap: 8px; margin-top: 8px; }
+.mdp-btn {
+  border: 0; border-radius: 10px; padding: 8px 12px; cursor: pointer;
+  background: #e50914; color: #fff; font-size: 13px;
+}
+.mdp-btn.secondary { background: #222; }
+.mdp-close { margin-left: auto; background: transparent; color:#666; border:0; cursor:pointer; }
+
+.mdp-iframe {
+  width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 12px; margin-top: 10px;
+  background: #000;
+}
+
+/* 스켈레톤 로딩 */
+.mdp-skel {
+  animation: mdpPulse 1.2s ease-in-out infinite;
+  background: linear-gradient(90deg,#eee 25%,#f5f5f5 37%,#eee 63%);
+  background-size: 400% 100%;
+}
+@keyframes mdpPulse { 0%{background-position: 100% 0} 100%{background-position: -100% 0} }
+
+.mdp-skel.poster { width:96px; height:144px; border-radius:10px; }
+.mdp-skel.line { height:12px; border-radius:6px; }
+.mdp-skel.line.w60 { width:60% } .mdp-skel.line.w40 { width:40% } .mdp-skel.line.w90 { width:90% }
+.mdp-skel.block { height: 80px; border-radius: 10px; margin-top: 10px; }
+
+/* 반응형: 작은 화면에서는 패널 숨김(필요 시 토글로 보여줘도 됨) */
+@media (max-width: 1024px) {
+  .movie-detail { display: none !important; }
+}
