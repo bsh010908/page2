@@ -121,7 +121,7 @@ const createTanslations = {
       stati: "영화통계",
       flow: "매출통계",
       chain: "체인운영",
-      calendar: "업무일정",
+      calendar: "개봉날짜",
       trello: "프로젝트일정",
       timeline: "생산일정",
       orgni: "조직도구성",

@@ -1,35 +1,34 @@
-// calendar.js
+const apiKey = 'dabb632914c69efca691e384dd571999';
+const calendarContainer = document.getElementById('calendar');
+
 const calendar = (() => {
-    const calendarContainer = document.getElementById('calendar');
     let today = new Date();
     let currentMonth = today.getMonth();
     let currentYear = today.getFullYear();
-    let tasks = {}; // 날짜별 영화 정보를 저장
+    let moviesByDate = {}; // { "2025-09-12": ["Movie Title", ...], ... }
 
-    // TMDB API 키
-    const TMDB_API_KEY = 'dabb632914c69efca691e384dd571999';
-    const TMDB_API_URL = `https://api.themoviedb.org/3/movie/now_playing?api_key=${TMDB_API_KEY}&language=ko-KR&page=1`;
-
-    // 영화 데이터 가져오기
     const fetchMovies = async () => {
+        moviesByDate = {};
         try {
-            const response = await fetch(TMDB_API_URL);
-            const data = await response.json();
-
-            tasks = {}; // 초기화
-            data.results.forEach(movie => {
-                if (movie.release_date) {
-                    const dateKey = movie.release_date; // YYYY-MM-DD
-                    if (!tasks[dateKey]) tasks[dateKey] = [];
-                    tasks[dateKey].push(movie.title);
+            const totalPages = 3; // 상위 3페이지까지 가져오기
+            for (let page = 1; page <= totalPages; page++) {
+                const response = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=ko-KR&page=${page}`);
+                const data = await response.json();
+                if (data && data.results) {
+                    data.results.forEach(movie => {
+                        if (movie.release_date) {
+                            const dateKey = movie.release_date;
+                            if (!moviesByDate[dateKey]) moviesByDate[dateKey] = [];
+                            moviesByDate[dateKey].push(movie.title);
+                        }
+                    });
                 }
-            });
+            }
         } catch (error) {
             console.error('영화 개봉일 불러오기 실패:', error);
         }
     };
 
-    // 달력 렌더링
     const renderCalendar = (month, year) => {
         calendarContainer.innerHTML = '';
         calendarContainer.className = 'w-full h-full mt-4';
@@ -38,12 +37,12 @@ const calendar = (() => {
         header.className = 'calendar-header flex justify-between items-center py-2 p-2 bg-gray-100';
 
         const prevBtn = document.createElement('button');
-        prevBtn.className = 'bg-blue-500 text-white px-2';
+        prevBtn.className = 'bg-blue-500 text-white';
         prevBtn.innerHTML = "&lt;";
         prevBtn.onclick = () => changeMonth(-1);
 
         const nextBtn = document.createElement('button');
-        nextBtn.className = 'bg-blue-500 text-white px-2';
+        nextBtn.className = 'bg-blue-500 text-white';
         nextBtn.innerHTML = "&gt;";
         nextBtn.onclick = () => changeMonth(1);
 
@@ -57,11 +56,11 @@ const calendar = (() => {
 
         const daysOfWeek = document.createElement('div');
         daysOfWeek.className = 'grid grid-cols-7 text-center';
-        ['일', '월', '화', '수', '목', '금', '토'].forEach(day => {
-            const dayDiv = document.createElement('div');
-            dayDiv.className = 'day-header';
-            dayDiv.innerText = day;
-            daysOfWeek.appendChild(dayDiv);
+        ['일','월','화','수','목','금','토'].forEach(d => {
+            const div = document.createElement('div');
+            div.className = 'day-header';
+            div.innerText = d;
+            daysOfWeek.appendChild(div);
         });
 
         const dates = document.createElement('div');
@@ -78,16 +77,17 @@ const calendar = (() => {
 
         for (let day = 1; day <= daysInMonth; day++) {
             const dateDiv = document.createElement('div');
-            dateDiv.className = 'py-6 px-4 border relative text-left';
-            const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-            dateDiv.innerHTML = `<div class="text-md font-bold absolute top-2 left-2">${day}</div>`;
+            dateDiv.className = 'py-6 px-4 border cursor-pointer relative';
+            dateDiv.innerHTML = `<div class="text-md absolute top-2 left-2">${day}</div>`;
 
-            if (tasks[dateKey]) {
+            const dateKey = `${year}-${String(month + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+
+            if (moviesByDate[dateKey]) {
                 const movieList = document.createElement('ul');
-                movieList.className = 'mt-4 text-sm text-gray-800';
-                tasks[dateKey].forEach(title => {
+                movieList.className = 'mt-4 text-left text-sm text-gray-800';
+                moviesByDate[dateKey].forEach(title => {
                     const li = document.createElement('li');
-                    li.innerText = title;
+                    li.innerText = `🎬 ${title}`;
                     movieList.appendChild(li);
                 });
                 dateDiv.appendChild(movieList);
