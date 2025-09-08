@@ -1,52 +1,54 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="ko">
 <head>
-    <link href="assets/css/default.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>영화 제목 맞추기 게임</title>
+  <link href="assets/css/default.css" rel="stylesheet">
 </head>
-
 <body>
-    <div id="cmmContainer"></div>
+  <div id="cmmContainer"></div>
+  <nav class="breadcrumb"></nav>
 
-    <nav class="breadcrumb"></nav>
+  <div id="content">
+    <!-- 차트 영역 -->
+    <div id="chart-bar"></div>
+    <div id="chart-pie"></div>
+    <div id="chart-line"></div>
 
-    <div id="content">
-        <div id="chart-bar"></div>
-        <div id="chart-pie"></div>
-        <div id="chart-line"></div>
+    <!-- 🎬 영화 제목 맞추기 게임 -->
+    <section id="movie-quiz" class="mq-wrap">
+      <div class="mq-hud">
+        <div>플레이어: <strong id="mqNicknameLabel">-</strong></div>
+        <div>점수: <strong id="mqScore">0</strong></div>
+        <div>라이프: <span id="mqLives">❤️❤️❤️</span></div>
+        <button id="mqSkip" class="mq-ghost">건너뛰기</button>
+      </div>
 
-        <!-- 영화 제목 맞추기 게임 -->
-        <section id="movie-quiz" class="mq-wrap">
-            <div class="mq-hud">
-                <div>플레이어: <strong id="mqNicknameLabel">-</strong></div>
-                <div>점수: <strong id="mqScore">0</strong></div>
-                <div>라이프: <span id="mqLives">❤️❤️❤️</span></div>
-                <button id="mqSkip" class="mq-ghost">건너뛰기</button>
-            </div>
+      <div class="mq-stage">
+        <div class="mq-poster">
+          <img id="mqPoster" alt="영화 포스터" />
+          <div id="mqOverlay" class="mq-overlay">로딩중…</div>
+        </div>
 
-            <div class="mq-stage">
-                <div class="mq-poster">
-                    <img id="mqPoster" alt="영화 포스터" />
-                    <div id="mqOverlay" class="mq-overlay">로딩중…</div>
-                </div>
+        <form id="mqForm" class="mq-answer" autocomplete="off">
+          <input id="mqInput" type="text" placeholder="영화 제목을 입력하세요" required />
+          <button type="submit">정답!</button>
+          <button type="button" id="mqHint" class="mq-ghost">힌트</button>
+        </form>
 
-                <form id="mqForm" class="mq-answer" autocomplete="off">
-                    <input id="mqInput" type="text" placeholder="영화 제목을 입력하세요" required />
-                    <button type="submit">정답!</button>
-                    <button type="button" id="mqHint" class="mq-ghost">힌트</button>
-                </form>
+        <div id="mqMsg" class="mq-msg" aria-live="polite"></div>
+      </div>
+    </section>
+  </div>
 
-                <div id="mqMsg" class="mq-msg" aria-live="polite"></div>
-            </div>
-        </section>
+  <!-- ApexCharts 전역 로드 (module 아님) -->
+  <script src="assets/vendor/apexcharts/dist/apexcharts.js"></script>
 
-    </div>
-    <script type="module" src="assets/js/movie-quiz.js"></script>
-    <script type="module" src="assets/vendor/apexcharts/dist/apexcharts.js"></script>
-    <script type="module" src="assets/js/logomodule.js"></script>
-    <script type="module" src="assets/js/coupon.js"></script>
+  <!-- 게임 스크립트 (module) -->
+  <script type="module" src="assets/js/movie-quiz.js"></script>
 
-
+  <!-- 네가 쓰던 다른 모듈들 -->
+  <script type="module" src="assets/js/logomodule.js"></script>
+  <script type="module" src="assets/js/coupon.js"></script>
 </body>
-
 </html>
