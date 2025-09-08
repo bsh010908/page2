@@ -118,7 +118,7 @@ const createTanslations = {
       hospital: "병원예약",
       lectures: "강의일정",
       city: "행정구역정보",
-      stati: "회원통계",
+      stati: "영화통계",
       flow: "매출통계",
       chain: "체인운영",
       calendar: "업무일정",
