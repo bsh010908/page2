@@ -101,7 +101,7 @@ const createTanslations = {
       schedule: "개봉날짜",
       statistics: "영화평점",
       settings: "통계",
-      biz: "사업관리",
+      biz: "미니게임",
     },
     offCanvas: {
       system: "영화검색",

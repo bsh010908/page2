@@ -14,10 +14,34 @@
         <div id="chart-bar"></div>
         <div id="chart-pie"></div>
         <div id="chart-line"></div>
-        
+
+        <!-- 영화 제목 맞추기 게임 -->
+        <section id="movie-quiz" class="mq-wrap">
+            <div class="mq-hud">
+                <div>플레이어: <strong id="mqNicknameLabel">-</strong></div>
+                <div>점수: <strong id="mqScore">0</strong></div>
+                <div>라이프: <span id="mqLives">❤️❤️❤️</span></div>
+                <button id="mqSkip" class="mq-ghost">건너뛰기</button>
+            </div>
+
+            <div class="mq-stage">
+                <div class="mq-poster">
+                    <img id="mqPoster" alt="영화 포스터" />
+                    <div id="mqOverlay" class="mq-overlay">로딩중…</div>
+                </div>
+
+                <form id="mqForm" class="mq-answer" autocomplete="off">
+                    <input id="mqInput" type="text" placeholder="영화 제목을 입력하세요" required />
+                    <button type="submit">정답!</button>
+                    <button type="button" id="mqHint" class="mq-ghost">힌트</button>
+                </form>
+
+                <div id="mqMsg" class="mq-msg" aria-live="polite"></div>
+            </div>
+        </section>
 
     </div>
-
+    <script type="module" src="assets/js/movie-quiz.js"></script>
     <script type="module" src="assets/vendor/apexcharts/dist/apexcharts.js"></script>
     <script type="module" src="assets/js/logomodule.js"></script>
     <script type="module" src="assets/js/coupon.js"></script>

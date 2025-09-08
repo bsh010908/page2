@@ -94,4 +94,4 @@ function renderAllCharts() {
   if (chart3 && window.ApexCharts) new ApexCharts(chart3, lineOptions).render();
 }
 
-breadcrumb.textContent = "쿠폰 Dashboard"
+breadcrumb.textContent = "영화이름 맞추기 게임";

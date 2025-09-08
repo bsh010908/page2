@@ -510,7 +510,7 @@ const tabsData = [
     { href: "calendar", icon: "fas fa-calendar-alt", label: "개봉날짜" },
     { href: "stati", icon: "fas fa-chart-bar", label: "영화평점" },
     { href: "config", icon: "fas fa-tools", label: "통계" },
-    { href: "coupon", icon: "fas fa-briefcase", label: "사업관리" },
+    { href: "coupon", icon: "fas fa-briefcase", label: "리" },
 ];
 
 function renderTabs(containerId) {
