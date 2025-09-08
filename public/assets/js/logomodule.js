@@ -245,7 +245,7 @@ const iconMapping = {
     "병원예약": "fa-hospital",
     "강의일정": "fa-chalkboard-teacher",
     "행정구역정보": "fa-map-marked-alt",
-    "시스템로그": "fa-clipboard-list",
+    "영화통계": "fa-clipboard-list",
 
     "컨설팅지정": "fa-network-wired",
     "서베이": "fa-poll",
@@ -322,7 +322,7 @@ const defaultMenuItems = [
     },
     {
         id: "5",
-        text: '시스템로그',
+        text: '영화통계',
         icon: 'fa-clipboard-list',
         href: 'config',
         children: [
@@ -508,8 +508,8 @@ const tabsData = [
     { href: "orgni", icon: "fas fa-users", label: "조직관리" },
     { href: "work", icon: "fas fa-building", label: "업무관리" },
     { href: "calendar", icon: "fas fa-calendar-alt", label: "개봉날짜" },
-    { href: "stati", icon: "fas fa-chart-bar", label: "통계" },
-    { href: "config", icon: "fas fa-tools", label: "설정관리" },
+    { href: "stati", icon: "fas fa-chart-bar", label: "영화평점" },
+    { href: "config", icon: "fas fa-tools", label: "통계" },
     { href: "coupon", icon: "fas fa-briefcase", label: "사업관리" },
 ];
 

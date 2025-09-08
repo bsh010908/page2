@@ -100,7 +100,7 @@ const createTanslations = {
       task: "업무관리",
       schedule: "개봉날짜",
       statistics: "영화평점",
-      settings: "설정관리",
+      settings: "통계",
       biz: "사업관리",
     },
     offCanvas: {
@@ -109,7 +109,7 @@ const createTanslations = {
       orgtree: "권한관리",
       document: "문서관리",
       wms: "WMS",
-      config: "시스템 로그",
+      config: "영화통계",
       network: "컨설팅 지정",
       locker: "사물함",
       survey: "서베이",
